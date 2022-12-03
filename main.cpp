@@ -1,0 +1,68 @@
+#include <ctime>
+#include "window.h"
+#include "graphic.h"
+#include "scene.h"
+
+
+int WINAPI WinMain(HINSTANCE hinstance,
+	HINSTANCE prevInstance,
+	PSTR cmdLine,
+	int showCmd)
+{
+
+	srand(static_cast<unsigned int>(time(NULL)));
+
+	Window& window = Window::getInstance();
+	if (!window.init(hinstance))
+		return 0;
+
+	HWND hwnd = window.getHandle();
+	Graphic& graphic = Graphic::getInstance();
+	if (!graphic.init(hinstance, hwnd, true, D3DDEVTYPE_HAL))
+		return 0;
+
+	IDirect3DDevice9* device = graphic.getDevice();
+	ID3DXFont* font = graphic.getFont();
+
+	Scene& scene = Scene::getInstance();
+	if (!scene.init(device, font))
+	{
+		::MessageBox(0, "Setup() - FAILED", 0, 0);
+		return 0;
+	}
+
+
+
+	MSG msg;
+	::ZeroMemory(&msg, sizeof(MSG));
+
+	static DWORD lastTime = timeGetTime();
+
+	// main loop
+	while (msg.message != WM_QUIT)
+	{
+		if (::PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+		else
+		{
+			DWORD currTime = timeGetTime();
+			if (currTime - lastTime < 17) continue;
+
+			double timeDelta = ((double)currTime - (double)lastTime) * 0.0007;
+			scene.update(); // manage keyboard input
+			scene.render((float)timeDelta); // move objects and draw it
+
+			lastTime = currTime;
+		}
+	}
+
+	scene.destory();
+	graphic.destory();
+	window.destory();
+	
+	return 0;
+}
+
