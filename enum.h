@@ -12,4 +12,5 @@ enum ObjectIndex
 	WALL_UP,
 	WALL_DOWN,
 	LIGHT,
+	BLOCK,
 };

@@ -31,7 +31,7 @@ bool Scene::initSpheres(IDirect3DDevice9* device)
 
 	sphere = new Sphere();
 	if (false == sphere->init(device, Graphic::RED, BALL_RADIUS)) return false;
-	sphere->setPosition({ -2.7f, BALL_RADIUS, 0.0f });
+	sphere->setPosition({ -2.7f, BALL_RADIUS + 0.1f, 0.0f });
 	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
 	objects[RED_BALL_A] = sphere;
 
@@ -80,6 +80,12 @@ bool Scene::initCuboids(IDirect3DDevice9* device)
 	cuboid->setPosition({ -4.56f, 0.12f, 0.0f });
 	cuboid->setStatic();
 	objects[WALL_DOWN] = cuboid;
+
+	cuboid = new Cuboid();
+	if (false == cuboid->init(device, { 0.2f, 0.3f, 0.24f }, Graphic::DARKRED)) return false;
+	cuboid->setPosition({ 0.0f, 0.05f, 0.0f });
+	cuboid->setStatic();
+	objects[BLOCK] = cuboid;
 
 	return true;
 }
