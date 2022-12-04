@@ -12,11 +12,8 @@
 // initialize constant variable
 const float Scene::BALL_RADIUS = 0.21f;
 
-bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
+bool Scene::initSpheres(IDirect3DDevice9* device)
 {
-	this->device = device;
-	this->font = font;
-
 	Sphere* sphere;
 
 	sphere = new Sphere();
@@ -44,6 +41,11 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
 	objects[RED_BALL_B] = sphere;
 
+	return true;
+}
+
+bool Scene::initCuboids(IDirect3DDevice9* device)
+{
 	Cuboid* cuboid;
 
 	// create plane and set the position
@@ -79,6 +81,11 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	cuboid->setStatic();
 	objects[WALL_DOWN] = cuboid;
 
+	return true;
+}
+
+bool Scene::initLight(IDirect3DDevice9* device)
+{
 	// create light
 	D3DLIGHT9 d3dLight;
 	ZeroMemory(&d3dLight, sizeof(d3dLight));
@@ -100,7 +107,20 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	light->setStatic();
 	objects[LIGHT] = light;
 
-	// set matrices
+	light->setLight(device, worldMatrix);
+
+	return true;
+}
+
+bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
+{
+	this->device = device;
+	this->font = font;
+
+	if (false == initSpheres(device)) return false;
+	if (false == initCuboids(device)) return false;
+	if (false == initLight(device)) return false;
+
 	attachCamera(objects[PLAYER]);
 
 	Window& window = Window::getInstance();
@@ -115,7 +135,7 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	device->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_PHONG);
 
-	light->setLight(device, worldMatrix);
+	
 	return true;
 }
 

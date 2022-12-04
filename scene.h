@@ -26,6 +26,11 @@ private:
 
 	void attachCamera(const Object*);
 
+
+	bool initSpheres(IDirect3DDevice9*);
+	bool initCuboids(IDirect3DDevice9*);
+	bool initLight(IDirect3DDevice9*);
+
 	Scene() :
 		lightIndex(NULL)
 	{
