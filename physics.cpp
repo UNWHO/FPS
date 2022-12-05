@@ -38,11 +38,30 @@ bool Physics::checkCollision(const Sphere* sphere, const Cuboid* cuboid)
 	if (absDistance.z > cuboidSize.z + radius) return false;
 
 	// sphere in cuboid
-	if (absDistance.x > cuboidSize.x) return true;
-	if (absDistance.y > cuboidSize.y) return true;
-	if (absDistance.z > cuboidSize.z) return true;
+	if (absDistance.x < cuboidSize.x) return true;
+	if (absDistance.y < cuboidSize.y) return true;
+	if (absDistance.z < cuboidSize.z) return true;
 
 	return D3DXVec3LengthSq(&(absDistance - cuboidSize)) < radius * radius;
+}
+
+// modified for project4
+bool Physics::checkCollision(const Cuboid* cuboid_A, const Cuboid* cuboid_B)
+{
+	if (cuboid_A->isRenderOnly() || cuboid_B->isRenderOnly())
+		return false;
+
+	D3DXVECTOR3 cuboid_ASize = cuboid_A->getSize();
+	D3DXVECTOR3 cuboid_BSize = cuboid_B->getSize();
+	cuboid_ASize /= 2;
+	cuboid_BSize /= 2;
+
+	D3DXVECTOR3 cuboid_APosition = cuboid_A->getPosition();
+	D3DXVECTOR3 cuboid_BPosition = cuboid_B->getPosition();
+
+	return cuboid_APosition.x + cuboid_ASize.x > cuboid_BPosition.x - cuboid_BSize.x && cuboid_BPosition.x + cuboid_BSize.x > cuboid_APosition.x - cuboid_ASize.x
+		&& cuboid_APosition.y + cuboid_ASize.y > cuboid_BPosition.y - cuboid_BSize.y && cuboid_BPosition.y + cuboid_BSize.y > cuboid_APosition.y - cuboid_ASize.y
+		&& cuboid_APosition.z + cuboid_ASize.z > cuboid_BPosition.z - cuboid_BSize.z && cuboid_BPosition.z + cuboid_BSize.z > cuboid_APosition.z - cuboid_ASize.z;
 }
 
 bool Physics::checkCollision(const Line* line, const Sphere* sphere)
@@ -199,6 +218,110 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 		}
 
 		sphere->setPosition(spherePosition - normVelocitiy * length);
+	}
+}
+
+// modified for project4
+// need modify
+void Physics::responseCollision(Cuboid* cuboid_A, Cuboid* cuboid_B)
+{
+	enum shape { WALL, BLOCK };
+	enum shape type_A, type_B;
+
+	if (cuboid_A->isStatic()) {
+		type_A = WALL;
+		type_B = BLOCK;
+	}
+	else {
+		type_A = BLOCK;
+		type_B = WALL;
+	}
+
+	enum dir { HORIZONTAL, VERTICAL } dir = VERTICAL;
+	D3DXVECTOR3 offset = { 0.0f, 0.0f, 0.0f };
+	D3DXVECTOR3 normVelocitiy;
+	float length;
+
+	D3DXVECTOR3 cuboid_AVelocity = cuboid_A->getVelocity();
+	D3DXVECTOR3 cuboid_APosition = cuboid_A->getPosition();
+	D3DXVECTOR3 cuboid_ASize = cuboid_A->getSize();
+	cuboid_ASize /= 2;
+
+	D3DXVECTOR3 cuboid_BVelocity = cuboid_B->getVelocity();
+	D3DXVECTOR3 cuboid_BPosition = cuboid_B->getPosition();
+	D3DXVECTOR3 cuboid_BSize = cuboid_B->getSize();
+	cuboid_BSize /= 2;
+
+	switch (type_A) {
+	case(WALL):
+		if (cuboid_BVelocity.x > 0)
+			offset.x = (cuboid_BPosition.x + cuboid_BSize.x) - (cuboid_BPosition.x - cuboid_BSize.x);
+		else
+			offset.x = (cuboid_BPosition.x - cuboid_BSize.x) - (cuboid_BPosition.x + cuboid_BSize.x);
+
+		if (cuboid_BVelocity.z > 0)
+			offset.z = (cuboid_BPosition.z + cuboid_BSize.z) - (cuboid_BPosition.z - cuboid_BSize.z);
+		else
+			offset.z = (cuboid_BPosition.z - cuboid_BSize.z) - (cuboid_BPosition.z + cuboid_BSize.z);
+
+		if (cuboid_BVelocity.x == 0)
+			dir = VERTICAL;
+		else if (cuboid_BVelocity.z == 0)
+			dir = HORIZONTAL;
+		else {
+			if (std::fabs(offset.x / cuboid_BVelocity.x) < std::fabs(offset.z / cuboid_BVelocity.z))
+				dir = HORIZONTAL;
+			else dir = VERTICAL;
+		}
+
+		D3DXVec3Normalize(&normVelocitiy, &cuboid_BVelocity);
+
+		switch (dir) {
+		case HORIZONTAL:
+			length = offset.x / normVelocitiy.x + Physics::RESPONSE_OFFSET;
+			cuboid_B->setVelocity({ -cuboid_BVelocity.x,cuboid_BVelocity.y,cuboid_BVelocity.z });
+			break;
+		case VERTICAL:
+			length = offset.z / normVelocitiy.z + Physics::RESPONSE_OFFSET;
+			cuboid_B->setVelocity({ cuboid_BVelocity.x,cuboid_BVelocity.y,-cuboid_BVelocity.z });
+			break;
+		}
+		cuboid_B->setPosition(cuboid_BPosition - normVelocitiy * length);
+
+	case(BLOCK):
+		if (cuboid_AVelocity.x > 0)
+			offset.x = (cuboid_APosition.x + cuboid_ASize.x) - (cuboid_APosition.x - cuboid_ASize.x);
+		else
+			offset.x = (cuboid_APosition.x - cuboid_ASize.x) - (cuboid_APosition.x + cuboid_ASize.x);
+
+		if (cuboid_AVelocity.z > 0)
+			offset.z = (cuboid_APosition.z + cuboid_ASize.z) - (cuboid_APosition.z - cuboid_ASize.z);
+		else
+			offset.z = (cuboid_APosition.z - cuboid_ASize.z) - (cuboid_APosition.z + cuboid_ASize.z);
+
+		if (cuboid_AVelocity.x == 0)
+			dir = VERTICAL;
+		else if (cuboid_AVelocity.z == 0)
+			dir = HORIZONTAL;
+		else {
+			if (std::fabs(offset.x / cuboid_AVelocity.x) < std::fabs(offset.z / cuboid_AVelocity.z))
+				dir = HORIZONTAL;
+			else dir = VERTICAL;
+		}
+
+		D3DXVec3Normalize(&normVelocitiy, &cuboid_AVelocity);
+
+		switch (dir) {
+		case HORIZONTAL:
+			length = offset.x / normVelocitiy.x + Physics::RESPONSE_OFFSET;
+			cuboid_A->setVelocity({ -cuboid_AVelocity.x,cuboid_AVelocity.y,cuboid_AVelocity.z });
+			break;
+		case VERTICAL:
+			length = offset.z / normVelocitiy.z + Physics::RESPONSE_OFFSET;
+			cuboid_A->setVelocity({ cuboid_AVelocity.x,cuboid_AVelocity.y,-cuboid_AVelocity.z });
+			break;
+		}
+		cuboid_A->setPosition(cuboid_APosition - normVelocitiy * length);
 	}
 }
 

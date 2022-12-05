@@ -85,6 +85,7 @@ bool Scene::initCuboids(IDirect3DDevice9* device)
 	if (false == cuboid->init(device, { 0.2f, 0.3f, 0.24f }, Graphic::DARKRED)) return false;
 	cuboid->setPosition({ 0.0f, 0.05f, 0.0f });
 	cuboid->setStatic();
+	cuboid->setVelocity({ 0.1f,0.0f,0.0f });
 	objects[BLOCK] = cuboid;
 
 	return true;
