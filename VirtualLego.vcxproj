@@ -134,6 +134,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cuboid.cpp" />
+    <ClCompile Include="file.cpp" />
+    <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="graphic.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="line.cpp" />
@@ -141,7 +143,6 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="scene.cpp" />
-    <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="cuboid.h" />
     <ClInclude Include="physics.h" />
+    <ClInclude Include="file.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="sphere.h" />
