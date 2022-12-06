@@ -31,7 +31,11 @@ bool Cuboid::collideWith(const Object* object) const
 		const Sphere* sphere = dynamic_cast<const Sphere*>(object);
 		return Physics::checkCollision(sphere, this);
 	}
-
+	if (targetShape == CUBOID)
+	{
+		const Cuboid* cuboid = dynamic_cast<const Cuboid*>(object);
+		return Physics::checkCollision(cuboid, this);
+	}
 	return false;
 }
 
@@ -43,6 +47,12 @@ void Cuboid::response(Object* object)
 	{
 		Sphere* sphere = dynamic_cast<Sphere*>(object);
 		Physics::responseCollision(sphere, this);
+		return;
+	}
+	if (targetShape == CUBOID)
+	{
+		Cuboid* cuboid = dynamic_cast<Cuboid*>(object); 
+		Physics::responseCollision(cuboid, this);
 		return;
 	}
 }

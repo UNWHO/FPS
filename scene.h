@@ -53,7 +53,7 @@ public:
 	void destory();
 	
 	void update();
-	void render(float);
+	void render(unsigned long);
 
 
 	

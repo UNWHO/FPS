@@ -36,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hinstance,
 	MSG msg;
 	::ZeroMemory(&msg, sizeof(MSG));
 
-	static DWORD lastTime = timeGetTime();
+	static unsigned long lastTime = timeGetTime();
 
 	// main loop
 	while (msg.message != WM_QUIT)
@@ -48,12 +48,12 @@ int WINAPI WinMain(HINSTANCE hinstance,
 		}
 		else
 		{
-			DWORD currTime = timeGetTime();
-			if (currTime - lastTime < 17) continue;
+			unsigned long currTime = timeGetTime();
+			if (currTime - lastTime < 16) continue;
 
-			double timeDelta = ((double)currTime - (double)lastTime) * 0.0007;
+			unsigned long timeDelta = currTime - lastTime;
 			scene.update(); // manage keyboard input
-			scene.render((float)timeDelta); // move objects and draw it
+			scene.render(timeDelta); // move objects and draw it
 
 			lastTime = currTime;
 		}

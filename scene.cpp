@@ -10,7 +10,7 @@
 #include <iostream>
 
 // initialize constant variable
-const float Scene::BALL_RADIUS = 0.21f;
+const float Scene::BALL_RADIUS = 0.20f;
 
 bool Scene::initSpheres(IDirect3DDevice9* device)
 {
@@ -31,7 +31,7 @@ bool Scene::initSpheres(IDirect3DDevice9* device)
 
 	sphere = new Sphere();
 	if (false == sphere->init(device, Graphic::RED, BALL_RADIUS)) return false;
-	sphere->setPosition({ -2.7f, BALL_RADIUS, 0.0f });
+	sphere->setPosition({ -2.7f, BALL_RADIUS + 0.1f, 0.0f });
 	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
 	objects[RED_BALL_A] = sphere;
 
@@ -50,9 +50,8 @@ bool Scene::initCuboids(IDirect3DDevice9* device)
 
 	// create plane and set the position
 	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 9.0f, 0.03f, 6.0f }, Graphic::GREEN)) return false;
-	cuboid->setPosition({ 0.0f, -0.0006f / 5, 0.0f });
-	cuboid->setRenderOnly();
+	if (false == cuboid->init(device, { 9.0f, 0.3f, 6.0f }, Graphic::GREEN)) return false;
+	cuboid->setPosition({ 0.0f, -0.18f, 0.0f });
 	cuboid->setStatic();
 	objects[PLANE] = cuboid;
 
@@ -80,6 +79,19 @@ bool Scene::initCuboids(IDirect3DDevice9* device)
 	cuboid->setPosition({ -4.56f, 0.12f, 0.0f });
 	cuboid->setStatic();
 	objects[WALL_DOWN] = cuboid;
+
+	cuboid = new Cuboid();
+	if (false == cuboid->init(device, { 0.2f, 0.3f, 0.24f }, Graphic::DARKRED)) return false;
+	cuboid->setPosition({ 0.0f, 0.05f, 0.0f });
+	cuboid->setStatic();
+	cuboid->setVelocity({ 0.1f,0.0f,0.0f });
+	objects[BLOCK] = cuboid;
+
+	cuboid = new Cuboid();
+	if (false == cuboid->init(device, { Scene::BALL_RADIUS * 2, 0.01f, Scene::BALL_RADIUS * 2 }, Graphic::DARKRED)) return false;
+	cuboid->setDetectOnly();
+	cuboid->setPosition({ -2.7f, -0.01f, -0.9f });
+	objects[PLAYER_FOOT] = cuboid;
 
 	return true;
 }
@@ -117,6 +129,8 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	this->device = device;
 	this->font = font;
 
+	gameManager.init(font);
+
 	if (false == initSpheres(device)) return false;
 	if (false == initCuboids(device)) return false;
 	if (false == initLight(device)) return false;
@@ -134,6 +148,8 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	device->SetRenderState(D3DRS_LIGHTING, TRUE);
 	device->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_PHONG);
+
+
 
 	
 	return true;
@@ -181,11 +197,11 @@ void Scene::update()
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	}
 
-	gameManager.updatePlayer(objects[PLAYER]);
-	attachCamera(objects[PLAYER]);
+	gameManager.updatePlayer(objects[PLAYER], objects[PLAYER_FOOT]);
+	
 }
 
-void Scene::render(float timeDelta)
+void Scene::render(unsigned long timeDelta)
 {
 	if (device)
 	{
@@ -196,12 +212,17 @@ void Scene::render(float timeDelta)
 			object->second->update(timeDelta);
 		}
 
-		gameManager.checkPlayerJumping(objects[PLAYER]);
+		D3DXVECTOR3 playerPosition = objects[PLAYER]->getPosition();
+		playerPosition.y -= (BALL_RADIUS + 0.1f);
+		objects[PLAYER_FOOT]->setPosition(playerPosition);
+
+		attachCamera(objects[PLAYER]);
 
 
 		std::unordered_map<ObjectIndex, Object*>::iterator object, target;
 
-		
+		gameManager.printFPS(timeDelta);
+	
 
 		for (object = objects.begin(); object != objects.end(); object++) 
 		{
@@ -210,11 +231,14 @@ void Scene::render(float timeDelta)
 			{
 				if (object->second->collideWith(target->second))
 				{
+					gameManager.checkPlayerJumping(object->first, target->first);
 					object->second->response(target->second);
 				}
 			}
 			object->second->render(device, worldMatrix);
 		}	
+
+		gameManager.printPlayerPosition(objects[PLAYER]);
 
 		device->EndScene();
 		device->Present(0, 0, 0, 0);

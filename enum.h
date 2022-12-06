@@ -3,6 +3,7 @@
 enum ObjectIndex
 {
 	PLAYER,
+	PLAYER_FOOT,
 	YELLOW_BALL,
 	RED_BALL_A,
 	RED_BALL_B,
@@ -12,4 +13,5 @@ enum ObjectIndex
 	WALL_UP,
 	WALL_DOWN,
 	LIGHT,
+	BLOCK,
 };

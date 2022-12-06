@@ -18,9 +18,12 @@ private:
 	D3DXVECTOR3 velocity;
 	D3DXVECTOR3 angle;
 
-	bool staticFlag;
-	bool renderOnly;
-	bool gravity;
+	bool renderOnly;	// do nothing about phiysics(collision detect, collistion response)
+
+	bool detectOnly;	// object responsed to collision only if it has volume
+	bool staticFlag;	// when collide to other objects, speed changed only if it is non-static object
+	
+	bool gravity;		// object falls only if its gravity flag turned true
 	Shape shape;
 
 	void updateLocalMatrix();
@@ -29,7 +32,7 @@ private:
 	D3DXMATRIX localMatrix;
 	D3DMATERIAL9 material;
 	ID3DXMesh* mesh;
-	bool visible;
+	bool visible;		// object rendered only if it is visible
 
 public:
 	Object():
@@ -41,7 +44,8 @@ public:
 		shape(NONE),
 		mesh(NULL),
 		visible(true),
-		gravity(false)
+		gravity(false),
+		detectOnly(false)
 	{
 		D3DXMatrixIdentity(&localMatrix);
 		ZeroMemory(&material, sizeof(material));
@@ -57,8 +61,12 @@ public:
 	virtual bool collideWith(const Object*) const = 0;
 	virtual void response(Object*) = 0;
 
-	void update(float);
+	void update(unsigned long);
 	void render(IDirect3DDevice9*, const D3DXMATRIX&);
+
+	virtual void onUpdate() {};
+	virtual void onCollide() {};
+	
 
 	const D3DXVECTOR3& getPosition() const { return position; };
 	void setPosition(const D3DXVECTOR3&);
@@ -90,6 +98,9 @@ public:
 	void setVisible() { visible = true; };
 	void setInvisible() { visible = false; };
 
+	bool isDetectOnly() const { return detectOnly; };
+	void setDetectOnly() { detectOnly = true; };
+
 	float getAngleY() const { return angle.y; };
 	void rotateY(float);
 
@@ -97,6 +108,7 @@ public:
 	void rotate(const D3DXVECTOR3&);
 
 	void applyGravity() { gravity = true; };
+	void cancelGravity() { gravity = false; };
 };
 
 
