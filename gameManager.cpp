@@ -1,9 +1,9 @@
 #include "gameManager.h"
 #include "window.h"
 
-const float GameManager::playerSpeed = 0.5f;
+const float GameManager::playerSpeed = 1.0f;
 const float GameManager::rotateSpeed = 0.004f;
-const float GameManager::jumpSpeed = 1.0f;
+const float GameManager::jumpSpeed = 1.5f;
 
 void GameManager::updatePlayer(Object* player)
 {
@@ -56,9 +56,9 @@ void GameManager::setPlayerVelocity(Object* player)
 void GameManager::checkPlayerJumping(Object* player)
 {
 	D3DXVECTOR3 position = player->getPosition();
-	if (position.y > 0.21f) return;
+	if (position.y > 0.1f) return;
 
-	position.y = 0.21f;
+	position.y = 0.1f;
 	player->setPosition(position);
 	isPlayerJumping = false;
 }
