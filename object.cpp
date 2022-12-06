@@ -3,7 +3,7 @@
 #include "object.h"
 #include "graphic.h"
 
-#define GRAVITY 0.125f
+#define GRAVITY 0.05f
 #define TIME 0.002f
 
 void Object::setPosition(const D3DXVECTOR3& position)

@@ -7,7 +7,7 @@
 
 const float GameManager::playerSpeed = 0.5f;
 const float GameManager::rotateSpeed = 0.004f;
-const float GameManager::jumpSpeed = 2.5f;
+const float GameManager::jumpSpeed = 1.5f;
 
 void GameManager::updatePlayer(Object* player, Object* playerFoot)
 {
@@ -38,7 +38,9 @@ void GameManager::setPlayerVelocity(Object* player, Object* playerFoot)
 	bool jump = window.isKeyPressed(SPACE);
 
 
-	D3DXVECTOR3 velocity3 = D3DXVECTOR3(verticalDir, 0.0f, horizontalDir) * playerSpeed;
+	D3DXVECTOR3 velocity3 = D3DXVECTOR3(verticalDir, 0.0f, horizontalDir);
+	D3DXVec3Normalize(&velocity3, &velocity3);
+	velocity3 = velocity3 * playerSpeed;
 	
 	if (isPlayerJumping)
 	{
@@ -70,10 +72,11 @@ void GameManager::setPlayerVelocity(Object* player, Object* playerFoot)
 
 void GameManager::checkPlayerJumping(ObjectIndex objectA, ObjectIndex objectB)
 {
+	
 	if (objectA != PLAYER_FOOT && objectB != PLAYER_FOOT) return;
 	if (false == isPlayerJumping) return;
-
 	isPlayerJumping = false;
+	
 }
 
 void GameManager::printFPS(unsigned long timeDelta)
