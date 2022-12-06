@@ -14,16 +14,23 @@ private:
 
 	bool isPlayerJumping;
 
-	void setPlayerVelocity(Object*);
+	void setPlayerVelocity(Object*, Object*);
 	void setPlayerRotation(Object*);
 
-public:
-	GameManager():
-		isPlayerJumping(false)
-	{}
+	ID3DXFont* font;
 
-	void updatePlayer(Object*);
-	void checkPlayerJumping(Object*);
+public:
+	GameManager() :
+		isPlayerJumping(false)
+	{};
+
+	void init(ID3DXFont* font) { this->font = font; };
+
+	void updatePlayer(Object*, Object*);
+	void checkPlayerJumping(ObjectIndex, ObjectIndex);
+
+	void printFPS(unsigned long);
+	void printPlayerPosition(Object*);
 	
 
 

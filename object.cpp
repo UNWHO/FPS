@@ -3,7 +3,8 @@
 #include "object.h"
 #include "graphic.h"
 
-#define GRAVITY 0.05;
+#define GRAVITY 0.125f
+#define TIME 0.002f
 
 void Object::setPosition(const D3DXVECTOR3& position)
 {
@@ -14,14 +15,14 @@ void Object::setPosition(const D3DXVECTOR3& position)
 	updateLocalMatrix();
 }
 
-void  Object::update(float deltaTime)
+void  Object::update(unsigned long deltaTime)
 {
-	if (this->staticFlag) return;
-
 	if(this->gravity)
 		velocity.y -= GRAVITY;
 
-	setPosition(position + 3.3f * deltaTime * velocity);
+	setPosition(position + ((float)deltaTime * TIME) * velocity);
+
+	onUpdate();
 }
 
 void Object::render(IDirect3DDevice9* device, const D3DXMATRIX& worldMatrix)

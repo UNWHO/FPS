@@ -1,6 +1,7 @@
 #include <cmath>
 #include "physics.h"
 #include <iostream>
+#include <cassert>
 
 // modified for project4
 bool Physics::checkCollision(const Sphere* sphere_A, const Sphere* sphere_B)
@@ -37,12 +38,7 @@ bool Physics::checkCollision(const Sphere* sphere, const Cuboid* cuboid)
 	if (absDistance.y > cuboidSize.y + radius) return false;
 	if (absDistance.z > cuboidSize.z + radius) return false;
 
-	// sphere in cuboid
-	if (absDistance.x < cuboidSize.x) return true;
-	if (absDistance.y < cuboidSize.y) return true;
-	if (absDistance.z < cuboidSize.z) return true;
-
-	return D3DXVec3LengthSq(&(absDistance - cuboidSize)) < radius * radius;
+	return true;
 }
 
 // modified for project4
@@ -59,9 +55,14 @@ bool Physics::checkCollision(const Cuboid* cuboid_A, const Cuboid* cuboid_B)
 	D3DXVECTOR3 cuboid_APosition = cuboid_A->getPosition();
 	D3DXVECTOR3 cuboid_BPosition = cuboid_B->getPosition();
 
-	return cuboid_APosition.x + cuboid_ASize.x > cuboid_BPosition.x - cuboid_BSize.x && cuboid_BPosition.x + cuboid_BSize.x > cuboid_APosition.x - cuboid_ASize.x
-		&& cuboid_APosition.y + cuboid_ASize.y > cuboid_BPosition.y - cuboid_BSize.y && cuboid_BPosition.y + cuboid_BSize.y > cuboid_APosition.y - cuboid_ASize.y
-		&& cuboid_APosition.z + cuboid_ASize.z > cuboid_BPosition.z - cuboid_BSize.z && cuboid_BPosition.z + cuboid_BSize.z > cuboid_APosition.z - cuboid_ASize.z;
+	if (cuboid_APosition.x + cuboid_ASize.x < cuboid_BPosition.x - cuboid_BSize.x) return false;
+	if (cuboid_APosition.x - cuboid_ASize.x > cuboid_BPosition.x + cuboid_BSize.x) return false;
+	if (cuboid_APosition.y + cuboid_ASize.y < cuboid_BPosition.y - cuboid_BSize.y) return false;
+	if (cuboid_APosition.y - cuboid_ASize.y > cuboid_BPosition.y + cuboid_BSize.y) return false;
+	if (cuboid_APosition.z + cuboid_ASize.z < cuboid_BPosition.z - cuboid_BSize.z) return false;
+	if (cuboid_APosition.z - cuboid_ASize.z > cuboid_BPosition.z + cuboid_BSize.z) return false;
+	
+	return true;
 }
 
 bool Physics::checkCollision(const Line* line, const Sphere* sphere)
@@ -95,6 +96,9 @@ bool Physics::checkCollision(const Line* line, const Sphere* sphere)
 // mass is in propotion to radius squared
 void Physics::responseCollision(Sphere* sphere_A, Sphere* sphere_B)
 {
+	if (sphere_A->isDetectOnly() || sphere_B->isDetectOnly())
+		return;
+
 	float radius_A = sphere_A->getRadius();
 	float radius_B = sphere_B->getRadius();
 
@@ -132,6 +136,9 @@ void Physics::responseCollision(Sphere* sphere_A, Sphere* sphere_B)
 // modified for project4
 void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 {
+	if (sphere->isDetectOnly() || cuboid->isDetectOnly())
+		return;
+
 	D3DXVECTOR3 sphereVelocity = sphere->getVelocity();
 	D3DXVECTOR3 cuboidVelocity = cuboid->getVelocity();
 
@@ -142,82 +149,71 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 	D3DXVECTOR3 cuboidSize = cuboid->getSize();
 	cuboidSize /= 2;
 
+	D3DXVECTOR3 relativeVelocity = sphereVelocity - cuboidVelocity;
+
 	if (cuboid->isStatic())
 	{
 		D3DXVECTOR3 offset = { 0.0f, 0.0f, 0.0f };
 
-		if (sphereVelocity.x > 0)
+		if (relativeVelocity.x > 0)
 			offset.x = (spherePosition.x + radius) - (cuboidPosition.x - cuboidSize.x);
 		else
 			offset.x = (spherePosition.x - radius) - (cuboidPosition.x + cuboidSize.x);
 
-		if (sphereVelocity.y > 0)
+		if (relativeVelocity.y > 0)
 			offset.y = (spherePosition.y + radius) - (cuboidPosition.y - cuboidSize.y);
 		else
 			offset.y = (spherePosition.y - radius) - (cuboidPosition.y + cuboidSize.y);
 
-		if (sphereVelocity.z > 0)
+		if (relativeVelocity.z > 0)
 			offset.z = (spherePosition.z + radius) - (cuboidPosition.z - cuboidSize.z);
 		else
 			offset.z = (spherePosition.z - radius) - (cuboidPosition.z + cuboidSize.z);
 
 
-		enum dir { HORIZONTAL_X, HORIZONTAL_Y, VERTICAL } dir = VERTICAL;
+		enum dir { DIR_X, DIR_Y, DIR_Z} dir;
 
-		if (sphereVelocity.x == 0 && sphereVelocity.y == 0)
-			dir = VERTICAL;
-		else if (sphereVelocity.y == 0 && sphereVelocity.z == 0)
-			dir = HORIZONTAL_X;
-		else if (sphereVelocity.z == 0 && sphereVelocity.x == 0)
-			dir = HORIZONTAL_Y;
+		if (0 == relativeVelocity.x) relativeVelocity.x = 0.00001f;
+		if (0 == relativeVelocity.y) relativeVelocity.y = 0.00001f;
+		if (0 == relativeVelocity.z) relativeVelocity.z = 0.00001f;
+
+		if (std::fabs(offset.x / relativeVelocity.x) <= std::fabs(offset.y / relativeVelocity.y))
+		{
+			if (std::fabs(offset.x / relativeVelocity.x) <= std::fabs(offset.z / relativeVelocity.z)) dir = DIR_X;
+			else dir = DIR_Z;
+		}
 		else
 		{
-			if (std::fabs(offset.x / sphereVelocity.x) < std::fabs(offset.z / sphereVelocity.z) &&
-				std::fabs(offset.y / sphereVelocity.y) < std::fabs(offset.z / sphereVelocity.z))
-			{
-				if (std::fabs(offset.x / sphereVelocity.x) < std::fabs(offset.y / sphereVelocity.y))
-					dir = HORIZONTAL_X;
-				else dir = HORIZONTAL_Y;
-			}
-			else if (std::fabs(offset.y / sphereVelocity.y) < std::fabs(offset.x / sphereVelocity.x) &&
-				std::fabs(offset.z / sphereVelocity.z) < std::fabs(offset.x / sphereVelocity.x)) 
-			{
-				if (std::fabs(offset.y / sphereVelocity.y) < std::fabs(offset.z / sphereVelocity.z))
-					dir = HORIZONTAL_Y;
-				else dir = VERTICAL;
-			}
-			else if (std::fabs(offset.x / sphereVelocity.x) < std::fabs(offset.y / sphereVelocity.y) &&
-				std::fabs(offset.z / sphereVelocity.z) < std::fabs(offset.y / sphereVelocity.y))
-			{
-				if (std::fabs(offset.x / sphereVelocity.x) < std::fabs(offset.z / sphereVelocity.z))
-					dir = HORIZONTAL_X;
-				else dir = VERTICAL;
-			}
-			else
-				dir = VERTICAL;
+			if (std::fabs(offset.y / relativeVelocity.y) <= std::fabs(offset.z / relativeVelocity.z)) dir = DIR_Y;
+			else dir = DIR_Z;
 		}
+		
 
 		D3DXVECTOR3 normVelocitiy;
-		D3DXVec3Normalize(&normVelocitiy, &sphereVelocity);
+		D3DXVec3Normalize(&normVelocitiy, &relativeVelocity);
 
 		float length;
-
+		
 		switch (dir)
 		{
-		case HORIZONTAL_X:
+		case DIR_X:
 			length = offset.x / normVelocitiy.x + Physics::RESPONSE_OFFSET;
-			sphere->setVelocity({ -sphereVelocity.x, sphereVelocity.y, sphereVelocity.z });
+			normVelocitiy.x = -normVelocitiy.x;
+			//sphere->setVelocity({ -sphereVelocity.x, sphereVelocity.y, sphereVelocity.z });
 			break;
-		case HORIZONTAL_Y:
+		case DIR_Y:
 			length = offset.y / normVelocitiy.y + Physics::RESPONSE_OFFSET;
-			sphere->setVelocity({ sphereVelocity.x,-sphereVelocity.y,sphereVelocity.z });
+			normVelocitiy.y = -normVelocitiy.y;
+			//sphere->setVelocity({ sphereVelocity.x,-sphereVelocity.y,sphereVelocity.z });
 			break;
-		case VERTICAL:
+		case DIR_Z:
 			length = offset.z / normVelocitiy.z + Physics::RESPONSE_OFFSET;
-			sphere->setVelocity({ sphereVelocity.x, sphereVelocity.y, -sphereVelocity.z });
+			normVelocitiy.z = -normVelocitiy.z;
+			//sphere->setVelocity({ sphereVelocity.x, sphereVelocity.y, -sphereVelocity.z });
 		}
-
-		sphere->setPosition(spherePosition - normVelocitiy * length);
+		D3DXVECTOR3 newPos = spherePosition + normVelocitiy * length;
+		assert(!std::isnan(newPos.x) && !std::isnan(newPos.y) && !std::isnan(newPos.z));
+		sphere->setPosition(spherePosition + normVelocitiy * length);
 	}
 }
 
@@ -225,6 +221,10 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 // need modify
 void Physics::responseCollision(Cuboid* cuboid_A, Cuboid* cuboid_B)
 {
+	if (cuboid_A->isDetectOnly() || cuboid_B->isDetectOnly())
+		return;
+
+	return;
 	enum shape { WALL, BLOCK };
 	enum shape type_A, type_B;
 
