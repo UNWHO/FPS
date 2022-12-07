@@ -9,6 +9,7 @@ bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 
 	setPosition(position);
 	setStatic();
+	setShape(CUBOID);
 
 	if (NULL == device)
 		return false;
@@ -23,7 +24,7 @@ bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 	return true;
 }
 
-void WeakBlock::onCollide()
+void WeakBlock::onCollide(Object* target)
 {
 	setRenderOnly();
 	setInvisible();

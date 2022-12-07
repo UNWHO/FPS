@@ -56,17 +56,24 @@ void Player::onBeforeUpdate()
 
 	if (isJumping)
 	{
-		velocity3.y = this->getVelocity().y;
+		if (canDoubleJump && jump)
+		{
+			velocity3.y += jumpSpeed;
+			canDoubleJump = false;
+		}
+		else
+			velocity3.y = this->getVelocity().y;
 	}
 	else
 	{
 		if (jump)
 		{
 			isJumping = true;
-			velocity3.y = jumpSpeed;
+			velocity3.y += jumpSpeed;
 		}
 	}
 
+	window.clearKeyStatus(SPACE);
 
 	D3DXVECTOR4 velocity4 = D3DXVECTOR4(velocity3, 1.0f);
 	D3DXMATRIX rotation;
@@ -75,6 +82,16 @@ void Player::onBeforeUpdate()
 	D3DXVec3Transform(&velocity4, &velocity3, &rotation);
 
 	this->setVelocity(D3DXVECTOR3(velocity4));
+}
+
+void Player::onUpdate()
+{
+	if (true == isJumping)
+		return;
+
+	D3DXVECTOR3 velocity = getVelocity();
+	velocity.y = 0.0f;
+	setVelocity(velocity);
 }
 
 
@@ -112,7 +129,7 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 void PlayerFoot::attachToPlayer()
 {
 	D3DXVECTOR3 position = player->getPosition();
-	position.y -= (player->getRadius() + size.y);
+	position.y -= (player->getRadius());
 
 	this->setPosition(position);
 }
@@ -134,10 +151,12 @@ void PlayerFoot::onBeforeRender()
 	attachToPlayer();
 }
 
-void PlayerFoot::onCollide()
+void PlayerFoot::onCollide(Object* target)
 {
+	if (target->getShape() == SPHERE)
+		return;
+
 	isCollided = true;
 
 	player->isJumping = false;
-	
 }

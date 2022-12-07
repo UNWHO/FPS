@@ -66,7 +66,7 @@ public:
 
 	virtual void onBeforeUpdate() {};
 	virtual void onUpdate() {};
-	virtual void onCollide() {};
+	virtual void onCollide(Object*) {};
 	virtual void onBeforeRender() {};
 	
 

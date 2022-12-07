@@ -7,6 +7,7 @@ bool StaticBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position, D3DXVECTO
 
 	setPosition(position);
 	setStatic();
+	setShape(CUBOID);
 
 	if (NULL == device)
 		return false;

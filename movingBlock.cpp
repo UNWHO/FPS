@@ -28,6 +28,7 @@ bool MovingBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 startPosition, D3DX
 
 	setMaterial(Graphic::BLUE, 5.0f);
 	setStatic();
+	setShape(CUBOID);
 
 	ID3DXMesh* cuboidMesh;
 	if (FAILED(D3DXCreateBox(device, size.x, size.y, size.z, &cuboidMesh, NULL)))

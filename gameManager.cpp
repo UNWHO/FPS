@@ -29,9 +29,9 @@ void GameManager::printPlayerPosition(Object* player)
 
 	RECT position = { 100, 0, width - 100, 100 };
 
-	D3DXVECTOR3 playerPosition = player->getVelocity();
+	D3DXVECTOR3 playerPosition = player->getPosition();
 
-	std::string str = "X: " + std::to_string(((Player*)player)->isJumping) + "Y: " + std::to_string(playerPosition.y) + "Z: " + std::to_string(playerPosition.z);
+	std::string str = "X: " + std::to_string(((Player*)player)->isJumping) + "Y: " + std::to_string(((Player*)player)->canDoubleJump) + "Z: " + std::to_string(window.isKeyPressed(SPACE));
 
 	font->DrawText(0, str.c_str(), -1, &position, DT_TOP | DT_RIGHT, Graphic::BLACK);
 }

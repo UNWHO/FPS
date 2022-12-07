@@ -7,6 +7,7 @@
 #include "movingBlock.h"
 #include "staticBlock.h"
 #include "weakBlock.h"
+#include "doubleJump.h"
 #include <iostream>
 
 // initialize constant variable
@@ -68,6 +69,10 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	if (false == weakBlock->init(device, { -3.0f, 0.16f, 1.0f })) return false;
 	objectMap[WEAK_TEST] = weakBlock;
 
+	DoubleJump* doubleJump = new DoubleJump();
+	if (false == doubleJump->init(device, { -3.0f, 0.5f, -3.0f })) return false;
+	objectMap[DOUBLE_TEST] = doubleJump;
+
 	if (false == initLight(device)) return false;
 
 	for (auto iter = objectMap.begin(); iter != objectMap.end(); iter++) {
@@ -86,7 +91,7 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 
 	device->SetRenderState(D3DRS_LIGHTING, TRUE);
 	device->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_PHONG);
 
 
 
@@ -162,8 +167,8 @@ void Scene::render(unsigned long timeDelta)
 			{
 				if ((*iterA)->collideWith(*iterB))
 				{
-					(*iterA)->onCollide();
-					(*iterB)->onCollide();
+					(*iterA)->onCollide(*iterB);
+					(*iterB)->onCollide(*iterA);
 
 					if ((*iterA)->isDetectOnly() || (*iterB)->isDetectOnly()) continue;
 

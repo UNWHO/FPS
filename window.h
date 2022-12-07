@@ -74,6 +74,8 @@ public:
 	bool isKeyPressed(KEY key) { return this->key[key]; };
 	bool isMouseClicked(MOUSE btn) { return mouse[btn]; };
 
+	void clearKeyStatus(KEY key) { this->key[key] = false; };
+
 	void getMousePos(int& x, int& y) { x = mouse_x; y = mouse_y; };
 	void getMousePosDelta(int& dx, int& dy) { dx = mouse_dx; dy = mouse_dy; };
 };

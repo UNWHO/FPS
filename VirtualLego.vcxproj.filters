@@ -42,6 +42,15 @@
     <Filter Include="Application\Block\Source Files">
       <UniqueIdentifier>{83d21205-323a-49b3-9adf-286fbf0df3e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\Item">
+      <UniqueIdentifier>{dcbb5be4-f10f-425a-b5ec-f14171174913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Item\Header Files">
+      <UniqueIdentifier>{07fceba5-94fb-4416-88ae-0fec68b5e5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Item\Source Files">
+      <UniqueIdentifier>{a530d277-e3da-4776-bd6d-292a79526921}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +95,9 @@
     <ClCompile Include="weakBlock.cpp">
       <Filter>Application\Block\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="doubleJump.cpp">
+      <Filter>Application\Item\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
@@ -129,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="weakBlock.h">
       <Filter>Application\Block\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doubleJump.h">
+      <Filter>Application\Item\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

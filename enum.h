@@ -18,4 +18,5 @@ enum ObjectIndex
 	MOVING_TEST,
 	BLOCK_TEST,
 	WEAK_TEST,
+	DOUBLE_TEST
 };

@@ -1,7 +1,7 @@
 #pragma once
-#include "cuboid.h"
+#include "sphere.h"
 
-class WeakBlock : public Cuboid
+class DoubleJump : public Sphere
 {
 public:
 	bool init(IDirect3DDevice9* device, D3DXVECTOR3 position);
