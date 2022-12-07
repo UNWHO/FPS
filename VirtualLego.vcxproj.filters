@@ -98,6 +98,9 @@
     <ClCompile Include="doubleJump.cpp">
       <Filter>Application\Item\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="directionalBlock.cpp">
+      <Filter>Application\Block\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="doubleJump.h">
       <Filter>Application\Item\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="directionalBlock.h">
+      <Filter>Application\Block\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

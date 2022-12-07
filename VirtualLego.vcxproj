@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cuboid.cpp" />
+    <ClCompile Include="directionalBlock.cpp" />
     <ClCompile Include="doubleJump.cpp" />
     <ClCompile Include="graphic.cpp" />
     <ClCompile Include="light.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="directionalBlock.h" />
     <ClInclude Include="doubleJump.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="graphic.h" />

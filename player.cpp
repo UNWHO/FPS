@@ -117,7 +117,7 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 	setMesh(cuboidMesh);
 
 	D3DXVECTOR3 position = player->getPosition();
-	position.y -= (player->getRadius() - size.y);
+	position.y -= (player->getRadius());
 
 	this->setPosition(position);
 	this->setVelocity({ 0.0f, 0.0f, 0.0f });
@@ -129,13 +129,13 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 void PlayerFoot::attachToPlayer()
 {
 	D3DXVECTOR3 position = player->getPosition();
-	position.y -= (player->getRadius());
+	position.y -= (player->getRadius() + size.y);
 
 	this->setPosition(position);
 }
 
 
-void PlayerFoot::onBeforeUpdate()
+void PlayerFoot::onBeforeUpdate(unsigned long deltaTime)
 {
 	if (false == isCollided)
 	{
@@ -156,10 +156,11 @@ void PlayerFoot::onCollide(Object* target)
 	if (target->getShape() == SPHERE)
 		return;
 
-	if (player->getVelocity().y > 0)
+	float relativeVelocity = player->getVelocity().y - target->getVelocity().y;
+
+	if (relativeVelocity > 0)
 		return;
 
 	isCollided = true;
-
 	player->isJumping = false;
 }

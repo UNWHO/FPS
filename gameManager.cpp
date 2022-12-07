@@ -31,7 +31,7 @@ void GameManager::printPlayerPosition(Object* player)
 
 	D3DXVECTOR3 playerPosition = player->getPosition();
 
-	std::string str = "X: " + std::to_string(((Player*)player)->isJumping) + "Y: " + std::to_string(playerPosition.y) + "Z: " + std::to_string(window.isKeyPressed(SPACE));
+	std::string str = "X: " + std::to_string(((Player*)player)->isJumping) + "Y: " + std::to_string(player->getVelocity().y) + "Z: " + std::to_string(window.isKeyPressed(SPACE));
 
 	font->DrawText(0, str.c_str(), -1, &position, DT_TOP | DT_RIGHT, Graphic::BLACK);
 }

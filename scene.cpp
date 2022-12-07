@@ -8,6 +8,7 @@
 #include "staticBlock.h"
 #include "weakBlock.h"
 #include "doubleJump.h"
+#include "directionalBlock.h"
 #include <iostream>
 
 // initialize constant variable
@@ -60,6 +61,10 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	MovingBlock* movingBlock = new MovingBlock();
 	if (false == movingBlock->init(device, { 1.0f, 0.15f, 1.0f }, { -1.0f, 0.15f, 1.0f }, 0.25f)) return false;
 	objectMap[MOVING_TEST] = movingBlock;
+
+	DirectionalBlock* directionalBlock = new DirectionalBlock();
+	if (false == directionalBlock->init(device, { 3.0f, 0.15f, 3.0f }, { 0.0f, 1.0f, 0.0f }, 0.25f)) return false;
+	objectMap[DIRECTIONAL_TEST] = directionalBlock;
 
 	StaticBlock* plane = new StaticBlock();
 	if (false == plane->init(device, { 0.0f, -0.1f, 0.0f }, { 10.0f, 0.2f, 10.0f })) return false;

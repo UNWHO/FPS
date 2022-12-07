@@ -47,7 +47,7 @@ public:
 	bool init(IDirect3DDevice9*, Player* player);
 	void attachToPlayer();
 
-	virtual void onBeforeUpdate();
+	virtual void onBeforeUpdate(unsigned long);
 	virtual void onBeforeRender();
 	virtual void onCollide(Object*);
 };
