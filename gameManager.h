@@ -3,7 +3,7 @@
 
 #include "enum.h"
 #include "object.h"
-
+#include "scoreboard.h"
 
 class GameManager
 {
@@ -31,7 +31,7 @@ public:
 
 	void printFPS(unsigned long);
 	void printPlayerPosition(Object*);
-	
 
+	void printRanking(ID3DXFont*)const;
 
 };

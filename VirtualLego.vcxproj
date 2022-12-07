@@ -142,6 +142,7 @@
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="gameManager.cpp" />
+    <ClCompile Include="scoreboard.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="physics.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="gameManager.h" />
+    <ClInclude Include="scoreboard.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
