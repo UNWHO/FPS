@@ -6,6 +6,7 @@
 #include "window.h"
 #include "graphic.h"
 #include "player.h"
+#include "movingBlock.h"
 
 #include <iostream>
 
@@ -126,6 +127,10 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	PlayerFoot* playerFoot = new PlayerFoot();
 	if (false == playerFoot->init(device)) return false;
 	objectMap[PLAYER_FOOT] = playerFoot;
+
+	MovingBlock* movingBlock = new MovingBlock();
+	if (false == movingBlock->init(device, { 1.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 1.0f }, 0.25f)) return false;
+	objectMap[MOVING_TEST] = movingBlock;
 
 	if (false == initSpheres(device)) return false;
 	if (false == initCuboids(device)) return false;

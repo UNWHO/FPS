@@ -137,6 +137,7 @@
     <ClCompile Include="graphic.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="movingBlock.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="physics.cpp" />
     <ClCompile Include="player.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="enum.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="movingBlock.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="cuboid.h" />
     <ClInclude Include="physics.h" />

@@ -68,6 +68,9 @@
     <ClCompile Include="player.cpp">
       <Filter>Application\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="movingBlock.cpp">
+      <Filter>Application\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
@@ -102,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="sphere.h">
       <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="movingBlock.h">
+      <Filter>Application\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
