@@ -1,5 +1,6 @@
 #include "weakBlock.h"
 #include "graphic.h"
+#include "player.h"
 
 bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 {
@@ -26,6 +27,9 @@ bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 
 void WeakBlock::onCollide(Object* target)
 {
+	if(dynamic_cast<PlayerFoot*>(target) == NULL)
+		return;
+
 	setRenderOnly();
 	setInvisible();
 }

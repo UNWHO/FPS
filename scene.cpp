@@ -153,9 +153,9 @@ void Scene::render(unsigned long timeDelta)
 		for (auto iter = objectVector.begin(); iter != objectVector.end(); iter++) {
 			Object* object = *iter;
 
-			object->onBeforeUpdate();
+			object->onBeforeUpdate(timeDelta);
 			object->update(timeDelta);
-			object->onUpdate();
+			object->onUpdate(timeDelta);
 		}
 
 		// collision detection / response

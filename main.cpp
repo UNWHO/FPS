@@ -49,7 +49,7 @@ int WINAPI WinMain(HINSTANCE hinstance,
 		else
 		{
 			unsigned long currTime = timeGetTime();
-			if (currTime - lastTime < 16) continue;
+			if (currTime - lastTime < 1) continue;
 
 			unsigned long timeDelta = currTime - lastTime;
 			scene.update(); // manage keyboard input

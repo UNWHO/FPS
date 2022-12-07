@@ -24,7 +24,7 @@ bool Player::init(IDirect3DDevice9* device)
 	return true;
 }
 
-void Player::onBeforeUpdate()
+void Player::onBeforeUpdate(unsigned long deltaTime)
 {
 	Window& window = Window::getInstance();
 
@@ -34,8 +34,8 @@ void Player::onBeforeUpdate()
 	window.getMousePosDelta(mouseDeltaX, mouseDeltaY);
 
 	D3DXVECTOR3 angle = this->getAngle();
-	angle.y -= mouseDeltaX * rotateSpeed;
-	angle.z += mouseDeltaY * rotateSpeed;
+	angle.y -= mouseDeltaX * rotateSpeed * deltaTime;
+	angle.z += mouseDeltaY * rotateSpeed * deltaTime;
 
 	this->rotate(angle);
 
@@ -84,7 +84,7 @@ void Player::onBeforeUpdate()
 	this->setVelocity(D3DXVECTOR3(velocity4));
 }
 
-void Player::onUpdate()
+void Player::onUpdate(unsigned long timeDelta)
 {
 	if (true == isJumping)
 		return;
@@ -117,7 +117,7 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 	setMesh(cuboidMesh);
 
 	D3DXVECTOR3 position = player->getPosition();
-	position.y -= (player->getRadius() + 0.1f);
+	position.y -= (player->getRadius() - size.y);
 
 	this->setPosition(position);
 	this->setVelocity({ 0.0f, 0.0f, 0.0f });
@@ -154,6 +154,9 @@ void PlayerFoot::onBeforeRender()
 void PlayerFoot::onCollide(Object* target)
 {
 	if (target->getShape() == SPHERE)
+		return;
+
+	if (player->getVelocity().y > 0)
 		return;
 
 	isCollided = true;

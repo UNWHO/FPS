@@ -17,9 +17,9 @@ private:
 public:
 	Player() :
 		playerSpeed(0.5f),
-		rotateSpeed(0.004f),
+		rotateSpeed(0.00025f),
 		jumpSpeed(1.0f),
-		isJumping(false),
+		isJumping(true),
 		canDoubleJump(false)
 	{
 
@@ -28,8 +28,8 @@ public:
 	bool canDoubleJump;
 	bool init(IDirect3DDevice9*);
 
-	virtual void onBeforeUpdate();
-	virtual void onUpdate();
+	virtual void onBeforeUpdate(unsigned long);
+	virtual void onUpdate(unsigned long);
 	void getDoubleJumpItem() { canDoubleJump = true; };
 };
 

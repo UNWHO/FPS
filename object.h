@@ -64,8 +64,8 @@ public:
 	void update(unsigned long);
 	void render(IDirect3DDevice9*, const D3DXMATRIX&);
 
-	virtual void onBeforeUpdate() {};
-	virtual void onUpdate() {};
+	virtual void onBeforeUpdate(unsigned long) {};
+	virtual void onUpdate(unsigned long) {};
 	virtual void onCollide(Object*) {};
 	virtual void onBeforeRender() {};
 	
