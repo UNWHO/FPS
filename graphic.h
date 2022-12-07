@@ -40,4 +40,5 @@ public:
 	static const D3DXCOLOR MAGENTA;
 	static const D3DXCOLOR DARKRED;
 	static const D3DXCOLOR BROWN;
+	static const D3DXCOLOR GRAY;
 };

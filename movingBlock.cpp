@@ -19,9 +19,9 @@ bool MovingBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 startPosition, D3DX
 	velocity = velocity * speed;
 	setVelocity(velocity);
 
-	size.x = 0.5f;
-	size.y = 0.5f;
-	size.z = 0.5f;
+	size.x = 1.6f;
+	size.y = 0.2f;
+	size.z = 1.6f;
 
 	if (NULL == device)
 		return false;
@@ -38,7 +38,7 @@ bool MovingBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 startPosition, D3DX
 
 }
 
-void MovingBlock::onUpdate()
+void MovingBlock::onBeforeRender()
 {
 	D3DXVECTOR3 from = direction ? startPosition : arrivalPosition;
 	D3DXVECTOR3 to = direction ? arrivalPosition : startPosition;

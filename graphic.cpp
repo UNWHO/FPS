@@ -12,6 +12,7 @@ const D3DXCOLOR Graphic::CYAN = D3DCOLOR_XRGB(0, 255, 255);
 const D3DXCOLOR Graphic::MAGENTA = D3DCOLOR_XRGB(255, 0, 255);
 const D3DXCOLOR	Graphic::DARKRED = D3DCOLOR_XRGB(215, 0, 0);
 const D3DXCOLOR	Graphic::BROWN = D3DCOLOR_XRGB(150, 75, 0);
+const D3DXCOLOR	Graphic::GRAY = D3DCOLOR_XRGB(80, 80, 80);
 
 bool Graphic::init(
 	HINSTANCE hInstance,

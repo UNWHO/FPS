@@ -167,17 +167,17 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 		case DIR_X:
 			length = offset.x / normVelocitiy.x + Physics::RESPONSE_OFFSET;
 			normVelocitiy.x = -normVelocitiy.x;
-			//sphere->setVelocity({ -sphereVelocity.x, sphereVelocity.y, sphereVelocity.z });
+			sphere->setVelocity({ 0.0f, sphereVelocity.y, sphereVelocity.z });
 			break;
 		case DIR_Y:
 			length = offset.y / normVelocitiy.y + Physics::RESPONSE_OFFSET;
 			normVelocitiy.y = -normVelocitiy.y;
-			//sphere->setVelocity({ sphereVelocity.x,-sphereVelocity.y,sphereVelocity.z });
+			sphere->setVelocity({ sphereVelocity.x, 0.0f,sphereVelocity.z });
 			break;
 		case DIR_Z:
 			length = offset.z / normVelocitiy.z + Physics::RESPONSE_OFFSET;
 			normVelocitiy.z = -normVelocitiy.z;
-			//sphere->setVelocity({ sphereVelocity.x, sphereVelocity.y, -sphereVelocity.z });
+			sphere->setVelocity({ sphereVelocity.x, sphereVelocity.y, 0.0f });
 		}
 		D3DXVECTOR3 newPos = spherePosition + normVelocitiy * length;
 		assert(!std::isnan(newPos.x) && !std::isnan(newPos.y) && !std::isnan(newPos.z));

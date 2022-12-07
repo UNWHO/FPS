@@ -11,7 +11,7 @@ private:
 	const float rotateSpeed;
 	const float jumpSpeed;
 
-	bool isJumping;
+
 
 public:
 	Player() :
@@ -21,7 +21,7 @@ public:
 		isJumping(false)
 	{
 
-	}
+	}	bool isJumping;
 
 	bool init(IDirect3DDevice9*);
 
@@ -33,13 +33,16 @@ class PlayerFoot : public Cuboid
 {
 private: 
 	bool isCollided;
+	Player* player;
 
 public:
 	PlayerFoot() :
 		isCollided(false)
 	{};
 
-	bool init(IDirect3DDevice9*);
+	bool init(IDirect3DDevice9*, Player* player);
+
+	void attachToPlayer();
 
 	virtual void onBeforeUpdate();
 	virtual void onBeforeRender();

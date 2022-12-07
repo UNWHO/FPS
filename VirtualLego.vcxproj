@@ -144,6 +144,7 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="staticBlock.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="sphere.h" />
+    <ClInclude Include="staticBlock.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

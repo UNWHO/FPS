@@ -33,6 +33,15 @@
       <UniqueIdentifier>{dbd93ea0-4100-4aa9-bd37-338f3c4938c4}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
+    <Filter Include="Application\Block">
+      <UniqueIdentifier>{d7f92f8f-5004-4377-81af-783faec69ca6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Block\Header Files">
+      <UniqueIdentifier>{e8047bdb-94c4-414f-8296-d8036b5a92cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Block\Source Files">
+      <UniqueIdentifier>{83d21205-323a-49b3-9adf-286fbf0df3e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,7 +78,10 @@
       <Filter>Application\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="movingBlock.cpp">
-      <Filter>Application\Source Files</Filter>
+      <Filter>Application\Block\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="staticBlock.cpp">
+      <Filter>Application\Block\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +119,10 @@
       <Filter>Engine\Resource\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="movingBlock.h">
-      <Filter>Application\Header Files</Filter>
+      <Filter>Application\Block\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="staticBlock.h">
+      <Filter>Application\Block\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,10 +18,9 @@ bool Player::init(IDirect3DDevice9* device)
 		return false;
 	setMesh(sphereMesh);
 
-	setPosition({ -2.7f, radius, -0.9f });
+	setPosition({ 0.0f, 1.01f, 0.0f });
 	setVelocity({ 0.0f, 0.0f, 0.0f });
 	applyGravity();
-
 	return true;
 }
 
@@ -65,7 +64,6 @@ void Player::onBeforeUpdate()
 		{
 			isJumping = true;
 			velocity3.y = jumpSpeed;
-			applyGravity();
 		}
 	}
 
@@ -80,7 +78,7 @@ void Player::onBeforeUpdate()
 }
 
 
-bool PlayerFoot::init(IDirect3DDevice9* device)
+bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 {
 	if (NULL == device)
 		return false;
@@ -88,17 +86,35 @@ bool PlayerFoot::init(IDirect3DDevice9* device)
 	setMaterial(Graphic::CYAN, 5.0f);
 
 	size.x = 0.2f;
-	size.y = 0.005f;
+	size.y = 0.001f;
 	size.z = 0.2f;
 
 	setDetectOnly();
+	setShape(CUBOID);
+
+	this->player = player;
 
 	ID3DXMesh* cuboidMesh;
 	if (FAILED(D3DXCreateBox(device, size.x, size.y, size.z, &cuboidMesh, NULL)))
 		return false;
 	setMesh(cuboidMesh);
 
+	D3DXVECTOR3 position = player->getPosition();
+	position.y -= (player->getRadius() + 0.1f);
+
+	this->setPosition(position);
+	this->setVelocity({ 0.0f, 0.0f, 0.0f });
+	this->setStatic();
+
 	return true;
+}
+
+void PlayerFoot::attachToPlayer()
+{
+	D3DXVECTOR3 position = player->getPosition();
+	position.y -= (player->getRadius() + size.y);
+
+	this->setPosition(position);
 }
 
 
@@ -106,32 +122,22 @@ void PlayerFoot::onBeforeUpdate()
 {
 	if (false == isCollided)
 	{
-		Scene& scene = Scene::getInstance();
-		Player* player = dynamic_cast<Player*>(scene.findObject(PLAYER));
 		player->isJumping = true;
 	}
 
 	isCollided = false;
+	attachToPlayer();
 }
 
 void PlayerFoot::onBeforeRender()
 {
-	Scene& scene = Scene::getInstance();
-	Player* player = dynamic_cast<Player*>(scene.findObject(PLAYER));
-
-	D3DXVECTOR3 position = player->getPosition();
-	position.y -= player->getRadius();
-
-	this->setPosition(position);
+	attachToPlayer();
 }
 
 void PlayerFoot::onCollide()
 {
 	isCollided = true;
 
-	Scene& scene = Scene::getInstance();
-	Player* player = dynamic_cast<Player*>(scene.findObject(PLAYER));
 	player->isJumping = false;
-	player->cancelGravity();
 	
 }

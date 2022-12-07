@@ -15,6 +15,7 @@ enum ObjectIndex
 	LIGHT,
 	BLOCK,
 	// BLOCK
-	MOVING_TEST
+	MOVING_TEST,
+	BLOCK_TEST,
 
 };

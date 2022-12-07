@@ -14,5 +14,5 @@ private:
 public:
 	bool init(IDirect3DDevice9* device, D3DXVECTOR3 startPosition, D3DXVECTOR3 arrivalPosition, float speed);
 
-	virtual void onUpdate();
+	virtual void onBeforeRender();
 };

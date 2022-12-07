@@ -1,88 +1,16 @@
 #include "scene.h"
 #include "object.h"
-#include "sphere.h"
-#include "cuboid.h"
 #include "light.h"
 #include "window.h"
 #include "graphic.h"
 #include "player.h"
 #include "movingBlock.h"
+#include "staticBlock.h"
 
 #include <iostream>
 
 // initialize constant variable
 const float Scene::BALL_RADIUS = 0.1f;
-
-bool Scene::initSpheres(IDirect3DDevice9* device)
-{
-	Sphere* sphere;
-
-	sphere = new Sphere();
-	if (false == sphere->init(device, Graphic::YELLOW, BALL_RADIUS)) return false;
-	sphere->setPosition({ 3.3f, BALL_RADIUS, 0.0f });
-	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
-	objectMap[YELLOW_BALL] = sphere;
-
-	sphere = new Sphere();
-	if (false == sphere->init(device, Graphic::RED, BALL_RADIUS)) return false;
-	sphere->setPosition({ -2.7f, BALL_RADIUS + 0.1f, 0.0f });
-	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
-	objectMap[RED_BALL_A] = sphere;
-
-	sphere = new Sphere();
-	if (false == sphere->init(device, Graphic::RED, BALL_RADIUS)) return false;
-	sphere->setPosition({ -2.0f, BALL_RADIUS, 0.0f });
-	sphere->setVelocity({ 0.0f, 0.0f, 0.0f });
-	objectMap[RED_BALL_B] = sphere;
-
-	return true;
-}
-
-bool Scene::initCuboids(IDirect3DDevice9* device)
-{
-	Cuboid* cuboid;
-
-	// create plane and set the position
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 9.0f, 0.3f, 6.0f }, Graphic::GREEN)) return false;
-	cuboid->setPosition({ 0.0f, -0.18f, 0.0f });
-	cuboid->setStatic();
-	objectMap[PLANE] = cuboid;
-
-	// create walls and set the position. note that there are four walls
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 9.0f, 0.3f, 0.12f }, Graphic::DARKRED)) return false;
-	cuboid->setPosition({ 0.0f, 0.12f, 3.06f });
-	cuboid->setStatic();
-	objectMap[WALL_LEFT] = cuboid;
-
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 9.0f, 0.3f, 0.12f }, Graphic::DARKRED)) return false;
-	cuboid->setPosition({ 0.0f, 0.12f, -3.06f });
-	cuboid->setStatic();
-	objectMap[WALL_RIGHT] = cuboid;
-
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 0.12f, 0.3f, 6.24f }, Graphic::DARKRED)) return false;
-	cuboid->setPosition({ 4.56f, 0.12f, 0.0f });
-	cuboid->setStatic();
-	objectMap[WALL_UP] = cuboid;
-
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 0.12f, 0.3f, 6.24f }, Graphic::DARKRED)) return false;
-	cuboid->setPosition({ -4.56f, 0.12f, 0.0f });
-	cuboid->setStatic();
-	objectMap[WALL_DOWN] = cuboid;
-
-	cuboid = new Cuboid();
-	if (false == cuboid->init(device, { 0.2f, 0.3f, 0.24f }, Graphic::DARKRED)) return false;
-	cuboid->setPosition({ 0.0f, 0.05f, 0.0f });
-	cuboid->setStatic();
-	cuboid->setVelocity({ 0.1f,0.0f,0.0f });
-	objectMap[BLOCK] = cuboid;
-
-	return true;
-}
 
 bool Scene::initLight(IDirect3DDevice9* device)
 {
@@ -125,15 +53,17 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	objectMap[PLAYER] = player;
 
 	PlayerFoot* playerFoot = new PlayerFoot();
-	if (false == playerFoot->init(device)) return false;
+	if (false == playerFoot->init(device, player)) return false;
 	objectMap[PLAYER_FOOT] = playerFoot;
 
 	MovingBlock* movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 1.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 1.0f }, 0.25f)) return false;
+	if (false == movingBlock->init(device, { 1.0f, 0.15f, 1.0f }, { -1.0f, 0.15f, 1.0f }, 0.25f)) return false;
 	objectMap[MOVING_TEST] = movingBlock;
 
-	if (false == initSpheres(device)) return false;
-	if (false == initCuboids(device)) return false;
+	StaticBlock* plane = new StaticBlock();
+	if (false == plane->init(device, { 0.0f, 0.0f, 0.0f }, { 5.0f, 0.2f, 5.0f })) return false;
+	objectMap[BLOCK_TEST] = plane;
+
 	if (false == initLight(device)) return false;
 
 	for (auto iter = objectMap.begin(); iter != objectMap.end(); iter++) {
@@ -164,7 +94,7 @@ void Scene::attachCamera(const Object* object)
 {
 	D3DXVECTOR3 objectAngle = object->getAngle();
 	cameraDirection = (cameraDirection + objectAngle) / 2;
-	cameraPosition = object->getPosition() + D3DXVECTOR3(-0.5f, 0.0f, 0.0f);
+	cameraPosition = object->getPosition();
 
 	D3DXMATRIX rotateX, rotateY, rotateZ, rotate;
 	D3DXMatrixRotationX(&rotateX, cameraDirection.x);
@@ -200,10 +130,7 @@ void Scene::update()
 	// change render mode
 	if (window.isKeyPressed(RETURN)) {
 		device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-	}
-
-	//gameManager.updatePlayer(objects[PLAYER], objects[PLAYER_FOOT]);
-	
+	}	
 }
 
 void Scene::render(unsigned long timeDelta)
@@ -227,7 +154,7 @@ void Scene::render(unsigned long timeDelta)
 		for (iterA = objectVector.begin(); iterA != objectVector.end(); iterA++)
 		{
 			iterB = iterA;
-			for (iterB++; iterB != objectVector.end(); iterB++)
+			for (++iterB; iterB != objectVector.end(); iterB++)
 			{
 				if ((*iterA)->collideWith(*iterB))
 				{
