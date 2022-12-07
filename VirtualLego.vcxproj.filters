@@ -1,87 +1,107 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{dbd93ea0-4100-4aa9-bd37-338f3c4938c4}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{53b93366-f602-45bf-93c0-a59a6ae6d64a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{fcf256d4-68db-4b38-bedc-e82bebb34d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Header Files">
+      <UniqueIdentifier>{fa3acc15-4c97-415b-b26b-bfc8b2f1c83c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Core\Source Files">
+      <UniqueIdentifier>{7c6c6dfc-e829-47a6-99bc-28d748602929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{003c0099-3b75-4f22-b9c1-2853e3fb6e53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Header Files">
+      <UniqueIdentifier>{1933eba3-ac80-4c51-a77e-fec754fd638b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Source Files">
+      <UniqueIdentifier>{367feb4c-1b71-450c-b58b-dbdd4f3e08ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{7c04513c-1dca-4ef8-9fa9-94dbfde14f4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Header Files">
       <UniqueIdentifier>{4528a7c3-d5c5-484d-8990-1deaaa66ae61}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
-    <Filter Include="Header Files\Resource Files">
-      <UniqueIdentifier>{c3cf806c-9f3c-45bc-803e-f09af01eb168}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    <Filter Include="Application\Source Files">
+      <UniqueIdentifier>{dbd93ea0-4100-4aa9-bd37-338f3c4938c4}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cuboid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Application\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gameManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Application\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphic.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="physics.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Core\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="line.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="window.cpp">
+      <Filter>Engine\Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cuboid.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="object.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sphere.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Application\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cuboid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Application\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="enum.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="player.h">
+      <Filter>Application\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphic.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="physics.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Core\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="line.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="window.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cuboid.h">
+      <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
+      <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Engine\Resource\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>Engine\Resource\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

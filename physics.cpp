@@ -65,40 +65,11 @@ bool Physics::checkCollision(const Cuboid* cuboid_A, const Cuboid* cuboid_B)
 	return true;
 }
 
-bool Physics::checkCollision(const Line* line, const Sphere* sphere)
-{
-	if (line->isRenderOnly() || sphere->isRenderOnly())
-		return false;
-
-	D3DXVECTOR3 linePosition = line->getPosition();
-	D3DXVECTOR3 spherePosition = sphere->getPosition();
-
-	float angle = line->getAngleY();
-	D3DXVECTOR3 lineDir = { std::cosf(angle), 0, -std::sinf(angle) };
-	D3DXVECTOR3 distance = spherePosition - linePosition;
-	D3DXVECTOR3 normDistance;
-	D3DXVec3Normalize(&normDistance, &distance);
-
-	float cosine = D3DXVec3Dot(&lineDir, &normDistance);
-
-
-	if (cosine > 1.01f || cosine < 0.99f) return false;
-
-
-	float length = line->getLength() / 2;
-	float radius = sphere->getRadius();
-
-	return D3DXVec3LengthSq(&distance) < (length + radius) * (length + radius);
-}
-
 // modified for project4
 // velocity after collision is related with each mass
 // mass is in propotion to radius squared
 void Physics::responseCollision(Sphere* sphere_A, Sphere* sphere_B)
 {
-	if (sphere_A->isDetectOnly() || sphere_B->isDetectOnly())
-		return;
-
 	float radius_A = sphere_A->getRadius();
 	float radius_B = sphere_B->getRadius();
 
@@ -136,9 +107,6 @@ void Physics::responseCollision(Sphere* sphere_A, Sphere* sphere_B)
 // modified for project4
 void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 {
-	if (sphere->isDetectOnly() || cuboid->isDetectOnly())
-		return;
-
 	D3DXVECTOR3 sphereVelocity = sphere->getVelocity();
 	D3DXVECTOR3 cuboidVelocity = cuboid->getVelocity();
 
@@ -221,9 +189,6 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 // need modify
 void Physics::responseCollision(Cuboid* cuboid_A, Cuboid* cuboid_B)
 {
-	if (cuboid_A->isDetectOnly() || cuboid_B->isDetectOnly())
-		return;
-
 	return;
 	enum shape { WALL, BLOCK };
 	enum shape type_A, type_B;
@@ -323,23 +288,4 @@ void Physics::responseCollision(Cuboid* cuboid_A, Cuboid* cuboid_B)
 		}
 		cuboid_A->setPosition(cuboid_APosition - normVelocitiy * length);
 	}
-}
-
-void Physics::responseCollision(Line* line, Sphere* sphere)
-{
-	D3DXVECTOR3 linePosition = line->getPosition();
-	D3DXVECTOR3 spherePosition = sphere->getPosition();
-
-	D3DXVECTOR3 distance = spherePosition - linePosition;
-	D3DXVECTOR3 normDistance;
-	D3DXVec3Normalize(&normDistance, &distance);
-
-	float length = line->getLength();
-	float radius = sphere->getRadius();
-
-	line->setPosition(spherePosition - normDistance * (length / 2 + radius));
-
-
-	sphere->setVelocity(line->getVelocity());
-	line->setVelocity({ 0.0f, 0.0f, 0.0f });
 }

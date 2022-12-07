@@ -1,7 +1,6 @@
 #include "sphere.h"
 #include "scene.h"
 #include "cuboid.h"
-#include "line.h"
 #include "physics.h"
 
 #include <iostream>
@@ -42,12 +41,6 @@ bool Sphere::collideWith(const Object* object) const
 		return Physics::checkCollision(this, sphere);
 	}
 
-	if (targetShape == LINE)
-	{
-		const Line* line = dynamic_cast<const Line*>(object);
-		return Physics::checkCollision(line, this);
-	}
-
 	return false;
 }
 
@@ -66,13 +59,6 @@ void Sphere::response(Object* object)
 	{
 		Sphere* sphere = dynamic_cast<Sphere*>(object);
 		Physics::responseCollision(this, sphere);
-		return;
-	}
-
-	if (targetShape == LINE)
-	{
-		Line* line = dynamic_cast<Line*>(object);
-		Physics::responseCollision(line, this);
 		return;
 	}
 }

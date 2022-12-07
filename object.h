@@ -64,8 +64,10 @@ public:
 	void update(unsigned long);
 	void render(IDirect3DDevice9*, const D3DXMATRIX&);
 
+	virtual void onBeforeUpdate() {};
 	virtual void onUpdate() {};
 	virtual void onCollide() {};
+	virtual void onBeforeRender() {};
 	
 
 	const D3DXVECTOR3& getPosition() const { return position; };

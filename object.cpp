@@ -17,12 +17,10 @@ void Object::setPosition(const D3DXVECTOR3& position)
 
 void  Object::update(unsigned long deltaTime)
 {
-	if(this->gravity)
-		velocity.y -= GRAVITY;
-
 	setPosition(position + ((float)deltaTime * TIME) * velocity);
 
-	onUpdate();
+	if(this->gravity)
+		velocity.y -= GRAVITY;
 }
 
 void Object::render(IDirect3DDevice9* device, const D3DXMATRIX& worldMatrix)

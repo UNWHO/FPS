@@ -3,7 +3,7 @@
 
 class Cuboid : public Object
 {
-private:
+protected:
 	D3DXVECTOR3 size;
 
 public:

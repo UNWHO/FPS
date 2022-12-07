@@ -4,7 +4,7 @@
 
 class Sphere : public Object
 {
-private:
+protected:
 	float radius;
 
 public:

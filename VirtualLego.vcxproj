@@ -136,10 +136,10 @@
     <ClCompile Include="cuboid.cpp" />
     <ClCompile Include="graphic.cpp" />
     <ClCompile Include="light.cpp" />
-    <ClCompile Include="line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="physics.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="sphere.cpp" />
@@ -149,10 +149,10 @@
     <ClInclude Include="enum.h" />
     <ClInclude Include="graphic.h" />
     <ClInclude Include="light.h" />
-    <ClInclude Include="line.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="cuboid.h" />
     <ClInclude Include="physics.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="sphere.h" />
