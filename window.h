@@ -7,10 +7,13 @@ enum KEY
 {
 	RETURN,
 	SPACE,
+	SHIFT,
 	KEY_W,
 	KEY_A,
 	KEY_S,
-	KEY_D
+	KEY_D,
+	KEY_C,
+	KEY_R,
 };
 
 enum MOUSE
@@ -25,7 +28,7 @@ private:
 	int width;
 	int height;
 
-	bool key[6];
+	bool key[10];
 	bool mouse[2];
 
 	int mouse_x;
@@ -64,6 +67,8 @@ public:
 
 	bool init(HINSTANCE);
 	void destory();
+
+	void updateKeyState();
 	friend LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 	HWND getHandle() const { return hwnd; };

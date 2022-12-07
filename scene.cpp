@@ -84,11 +84,14 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 		objectVector.push_back(iter->second);
 	}
 
-	attachCamera(objectMap[PLAYER]);
+	camera.init(device);
+	camera.attach(player);
+
 
 	Window& window = Window::getInstance();
 	float ratio = (float)window.getWidth() / window.getHeight();
 
+	D3DXMATRIX projectionMatrix;
 	//D3DXMatrixOrthoLH(&projectionMatrix, 8.0f * ratio, 8.0f, 1.0f, 100.0f);
 	D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI / 4, 
 		(float)window.getWidth() / window.getHeight(), 0.001f, 100.0f);
@@ -98,35 +101,7 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	device->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_PHONG);
 
-
-
-	
 	return true;
-}
-
-void Scene::attachCamera(const Object* object)
-{
-	D3DXVECTOR3 objectAngle = object->getAngle();
-	cameraDirection = (cameraDirection + objectAngle) / 2;
-	cameraPosition = object->getPosition();
-
-	D3DXMATRIX rotateX, rotateY, rotateZ, rotate;
-	D3DXMatrixRotationX(&rotateX, cameraDirection.x);
-	D3DXMatrixRotationY(&rotateY, cameraDirection.y);
-	D3DXMatrixRotationZ(&rotateZ, cameraDirection.z);
-	rotate = rotateZ * rotateY * rotateX;
-
-	D3DXVECTOR4 cameraTargetDir;
-	D3DXVec3Transform(&cameraTargetDir, &D3DXVECTOR3(1.0f, 0.0f, 0.0f), &rotate);
-	D3DXVECTOR3 cameraTargetPosition = cameraPosition + D3DXVECTOR3(cameraTargetDir);
-
-	D3DXVECTOR4 cameraUp;
-	D3DXVec3Transform(&cameraUp, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), &rotate);
-
-
-	
-	D3DXMatrixLookAtLH(&viewMatrix, &cameraPosition, &cameraTargetPosition, &D3DXVECTOR3(0, 1, 0));
-	device->SetTransform(D3DTS_VIEW, &viewMatrix);
 }
 
 void Scene::destory()
@@ -182,7 +157,7 @@ void Scene::render(unsigned long timeDelta)
 			}
 		}	
 
-		attachCamera(objectMap[PLAYER]);
+		camera.update();
 
 		// render
 		for (auto iter = objectVector.begin(); iter != objectVector.end(); iter++) {

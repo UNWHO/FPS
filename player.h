@@ -8,6 +8,7 @@ class Player : public Sphere
 
 private:
 	const float playerSpeed;
+	const float playerRunSpeed;
 	const float rotateSpeed;
 	const float jumpSpeed;
 
@@ -17,6 +18,7 @@ private:
 public:
 	Player() :
 		playerSpeed(0.5f),
+		playerRunSpeed(1.75f),
 		rotateSpeed(0.00025f),
 		jumpSpeed(1.0f),
 		isJumping(true),

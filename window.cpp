@@ -4,6 +4,9 @@
 #include <WinUser.h>
 #include <wingdi.h>
 
+#define UP 0x0000 & 0x0001
+#define DOWN 0x8000 & 0x8001
+
 
 bool Window::init(HINSTANCE hInstance)
 {
@@ -90,6 +93,9 @@ LRESULT CALLBACK WndProc(
 		case VK_SPACE:
 			window.key[SPACE] = true;
 			break;
+		case VK_SHIFT:
+			window.key[SHIFT] = true;
+			break;
 		case 'W':
 			window.key[KEY_W] = true;
 			break;
@@ -102,6 +108,12 @@ LRESULT CALLBACK WndProc(
 		case 'D':
 			window.key[KEY_D] = true;
 			break;
+		case 'C':
+			window.key[KEY_C] = true;
+			break;
+		case 'R':
+			window.key[KEY_R] = true;
+			break;
 		}
 		break;
 	}
@@ -110,6 +122,9 @@ LRESULT CALLBACK WndProc(
 		switch (wParam) {
 		case VK_SPACE:
 			window.key[SPACE] = false;
+			break;
+		case VK_SHIFT:
+			window.key[SHIFT] = false;
 			break;
 		case 'W':
 			window.key[KEY_W] = false;
@@ -122,6 +137,12 @@ LRESULT CALLBACK WndProc(
 			break;
 		case 'D':
 			window.key[KEY_D] = false;
+			break;
+		case 'C':
+			window.key[KEY_C] = false;
+			break;
+		case 'R':
+			window.key[KEY_R] = false;
 			break;
 		}
 		break;

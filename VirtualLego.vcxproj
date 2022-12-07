@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="cuboid.cpp" />
     <ClCompile Include="directionalBlock.cpp" />
     <ClCompile Include="doubleJump.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="directionalBlock.h" />
     <ClInclude Include="doubleJump.h" />
     <ClInclude Include="enum.h" />

@@ -39,6 +39,13 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 
 	this->rotate(angle);
 
+	if (window.isKeyPressed(KEY_R))
+	{
+		setPosition({ 0.0f, 1.01f, 0.0f });
+		setVelocity({ 0.0f, 0.0f, 0.0f });
+		window.clearKeyStatus(KEY_R);
+	}
+
 
 	// set velocity
 	int horizontalDir = window.isKeyPressed(KEY_A) - window.isKeyPressed(KEY_D);
@@ -47,7 +54,7 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 
 	D3DXVECTOR3 velocity3 = D3DXVECTOR3(verticalDir, 0.0f, horizontalDir);
 	D3DXVec3Normalize(&velocity3, &velocity3);
-	velocity3 = velocity3 * playerSpeed;
+	velocity3 *= window.isKeyPressed(SHIFT) ? playerRunSpeed : playerSpeed;
 
 
 	// jump

@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "camera.h"
 #include "enum.h"
 #include "object.h"
 #include "gameManager.h"
@@ -11,8 +12,6 @@ class Scene
 {
 private:
 	D3DXMATRIX worldMatrix;
-	D3DXMATRIX viewMatrix;
-	D3DXMATRIX projectionMatrix;
 
 	std::unordered_map<ObjectIndex, Object*> objectMap;
 	std::vector<Object*> objectVector;
@@ -23,11 +22,7 @@ private:
 	ID3DXFont* font;
 
 	GameManager gameManager;
-
-	D3DXVECTOR3 cameraPosition;
-	D3DXVECTOR3 cameraDirection;
-
-	void attachCamera(const Object*);
+	Camera camera;
 
 	bool initLight(IDirect3DDevice9*);
 
@@ -35,8 +30,6 @@ private:
 		lightIndex(NULL)
 	{
 		D3DXMatrixIdentity(&worldMatrix);
-		D3DXMatrixIdentity(&viewMatrix);
-		D3DXMatrixIdentity(&projectionMatrix);
 	}
 	Scene(const Scene& ref);
 	Scene& operator=(const Scene& ref) {}

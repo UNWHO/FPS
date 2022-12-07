@@ -101,6 +101,9 @@
     <ClCompile Include="directionalBlock.cpp">
       <Filter>Application\Block\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Engine\Resource\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
@@ -150,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="directionalBlock.h">
       <Filter>Application\Block\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Engine\Resource\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
