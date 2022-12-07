@@ -6,7 +6,7 @@
 #include "player.h"
 #include "movingBlock.h"
 #include "staticBlock.h"
-
+#include "weakBlock.h"
 #include <iostream>
 
 // initialize constant variable
@@ -61,8 +61,12 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	objectMap[MOVING_TEST] = movingBlock;
 
 	StaticBlock* plane = new StaticBlock();
-	if (false == plane->init(device, { 0.0f, 0.0f, 0.0f }, { 5.0f, 0.2f, 5.0f })) return false;
+	if (false == plane->init(device, { 0.0f, -0.1f, 0.0f }, { 10.0f, 0.2f, 10.0f })) return false;
 	objectMap[BLOCK_TEST] = plane;
+
+	WeakBlock* weakBlock = new WeakBlock();
+	if (false == weakBlock->init(device, { -3.0f, 0.16f, 1.0f })) return false;
+	objectMap[WEAK_TEST] = weakBlock;
 
 	if (false == initLight(device)) return false;
 

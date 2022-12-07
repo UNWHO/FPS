@@ -83,6 +83,9 @@
     <ClCompile Include="staticBlock.cpp">
       <Filter>Application\Block\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="weakBlock.cpp">
+      <Filter>Application\Block\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
@@ -122,6 +125,9 @@
       <Filter>Application\Block\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="staticBlock.h">
+      <Filter>Application\Block\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="weakBlock.h">
       <Filter>Application\Block\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

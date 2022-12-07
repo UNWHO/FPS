@@ -1,9 +1,11 @@
-#include "staticBlock.h"
+#include "weakBlock.h"
 #include "graphic.h"
 
-bool StaticBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position, D3DXVECTOR3 size = {3.2f, 0.2f, 1.6f})
+bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 {
-	this->size = size;
+	size.x = 1.6f;
+	size.y = 0.2f;
+	size.z = 1.6f;
 
 	setPosition(position);
 	setStatic();
@@ -11,7 +13,7 @@ bool StaticBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position, D3DXVECTO
 	if (NULL == device)
 		return false;
 
-	setMaterial(Graphic::GRAY, 5.0f);
+	setMaterial(Graphic::BROWN, 5.0f);
 
 	ID3DXMesh* cuboidMesh;
 	if (FAILED(D3DXCreateBox(device, size.x, size.y, size.z, &cuboidMesh, NULL)))
@@ -19,4 +21,10 @@ bool StaticBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position, D3DXVECTO
 	setMesh(cuboidMesh);
 
 	return true;
+}
+
+void WeakBlock::onCollide()
+{
+	setRenderOnly();
+	setInvisible();
 }

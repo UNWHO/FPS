@@ -145,6 +145,7 @@
     <ClCompile Include="gameManager.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="staticBlock.cpp" />
+    <ClCompile Include="weakBlock.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="staticBlock.h" />
+    <ClInclude Include="weakBlock.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
