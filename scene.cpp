@@ -51,7 +51,7 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	Player* player = new Player();
 	if (false == player->init(device)) return false;
 	objectMap[PLAYER] = player;
-	//ddss
+	
 	PlayerFoot* playerFoot = new PlayerFoot();
 	if (false == playerFoot->init(device, player)) return false;
 	objectMap[PLAYER_FOOT] = playerFoot;
