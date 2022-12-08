@@ -4,9 +4,9 @@
 
 bool WeakBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 {
-	size.x = 1.6f;
+	size.x = 2.0f;
 	size.y = 0.2f;
-	size.z = 1.6f;
+	size.z = 2.0f;
 
 	setPosition(position);
 	setStatic();

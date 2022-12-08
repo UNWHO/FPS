@@ -19,9 +19,9 @@ bool MovingBlock::init(IDirect3DDevice9* device, D3DXVECTOR3 startPosition, D3DX
 	velocity = velocity * speed;
 	setVelocity(velocity);
 
-	size.x = 1.6f;
+	size.x = 2.0f;
 	size.y = 0.2f;
-	size.z = 1.6f;
+	size.z = 2.0f;
 
 	if (NULL == device)
 		return false;
