@@ -58,6 +58,24 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	if (false == playerFoot->init(device, player)) return false;
 	objectMap[PLAYER_FOOT] = playerFoot;
 
+	DirectionalBlock* direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 1.0f, 0.5f, 1.0f }, { -1.0f, 0.5f, 1.0f }, 0.25f)) return false;
+	objectMap[DIRECT_BLOCK_TEST] = direcionalBlock;
+
+	DoubleJump* doubleJump = new DoubleJump();//먹으면 더블점프가능
+	if (false == doubleJump->init(device, { 10.0f, 0.3f, 0.0f })) return false;
+	objectMap[DOUBLE_TEST] = doubleJump;
+
+
+	WeakBlock* weakBlock = new WeakBlock(); //fake_block
+	if (false == weakBlock->init(device, { -3.0f, 0.16f, 1.0f })) return false;
+	objectMap[WEAK_TEST] = weakBlock;
+
+
+	MovingBlock* movingBlock = new MovingBlock();
+	if (false == movingBlock->init(device, { 1.0f, 0.0f, 1.0f }, { -1.0f, 0.0f, 1.0f }, 0.25f)) return false;
+	objectMap[MOVING_TEST] = movingBlock;
+
 	StaticBlock* plane = new StaticBlock();
 	if (false == plane->init(device, { 0.0f, -0.1f, 0.0f }, { 10.0f, 0.2f, 10.0f })) return false;
 	objectMap[START_STEP] = plane;
@@ -84,118 +102,183 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	if (false == plane->init(device, { 20.0f, -0.1f, -20.0f }, { 10.0f, 0.2f, 10.0f })) return false;
 	objectMap[STEP_1] = plane;
 
-	MovingBlock* movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 1.0f, 0.15f, 1.0f }, { -1.0f, 0.15f, 1.0f }, 0.25f)) return false;
-	objectMap[MOVING_TEST] = movingBlock;
 
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 26.0f, 0.15f, -26.0f }, { 26.0f, 0.15f, -34.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_1] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 26.0f, 0.15f, -29.0f }, { 26.0f, 0.15f, -37.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_2] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 26.0f, 0.15f, -32.0f }, { 26.0f, 0.15f, -40.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_3] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 28.0f, 0.15f, -27.0f }, { 28.0f, 0.15f, -35.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_4] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 28.0f, 0.15f, -30.0f }, { 28.0f, 0.15f, -38.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_5] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 28.0f, 0.15f, -33.0f }, { 28.0f, 0.15f, -41.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_6] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 30.0f, 0.15f, -26.0f }, { 30.0f, 0.15f, -34.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_7] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 30.0f, 0.15f, -29.0f }, { 30.0f, 0.15f, -37.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_8] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 30.0f, 0.15f, -32.0f }, { 30.0f, 0.15f, -40.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_9] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 32.0f, 0.15f, -27.0f }, { 32.0f, 0.15f, -35.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_10] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 32.0f, 0.15f, -30.0f }, { 32.0f, 0.15f, -38.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_11] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 32.0f, 0.15f, -33.0f }, { 32.0f, 0.15f, -41.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_12] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 34.0f, 0.15f, -26.0f }, { 34.0f, 0.15f, -34.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_13] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 34.0f, 0.15f, -29.0f }, { 34.0f, 0.15f, -37.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_14] = movingBlock;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 34.0f, 0.15f, -32.0f }, { 34.0f, 0.15f, -40.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_2_15] = movingBlock;
+	
+
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 26.0f, -0.1f, -26.0f }, { 26.0f, -0.1f, -34.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_1] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 26.0f, -0.1f, -29.0f }, { 26.0f, -0.1f, -34.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_2] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 26.0f, -0.1f, -32.0f }, { 26.0f, -0.1f, -34.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_3] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 28.0f, -0.1f, -27.0f }, { 28.0f, -0.1f, -28.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_4] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 28.0f, -0.1f, -30.0f }, { 28.0f, -0.1f, -31.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_5] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 28.0f, -0.1f, -33.0f }, { 28.0f, -0.1f, -34.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_6] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 30.0f, -0.1f, -26.0f }, { 30.0f, -0.1f, -27.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_7] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 30.0f, -0.1f, -29.0f }, { 30.0f, -0.1f, -30.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_8] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 30.0f, -0.1f, -32.0f }, { 30.0f, -0.1f, -33.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_9] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 32.0f, -0.1f, -27.0f }, { 32.0f, -0.1f, -28.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_10] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 32.0f, -0.1f, -30.0f }, { 32.0f, -0.1f, -31.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_11] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 32.0f, -0.1f, -33.0f }, { 32.0f, -0.1f, -34.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_12] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 34.0f, -0.1f, -26.0f }, { 34.0f, -0.1f, -27.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_13] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 34.0f, -0.1f, -29.0f }, { 34.0f, -0.1f, -30.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_14] = direcionalBlock;
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 34.0f, -0.1f, -32.0f }, { 34.0f, -0.1f, -33.0f }, 0.5f)) return false;
+	objectMap[FOR_STEP_2_15] = direcionalBlock;
+
+	plane = new StaticBlock();
+	if (false == plane->init(device, { 30.0f, -0.5f, -30.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	objectMap[IMSI] = plane;
 
 
 	plane = new StaticBlock();
 	if (false == plane->init(device, { 40.0f, -0.1f, -40.0f }, { 10.0f, 0.2f, 10.0f })) return false;
 	objectMap[STEP_2] = plane;
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 46.0f, 0.7f, -35.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_1] = plane;
-	if (false == plane->init(device, { 48.0f, 1.4f, -35.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_2] = plane;
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 50.0f, 2.1f, -33.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_3] = plane;
-	if (false == plane->init(device, { 52.0f, 2.8f, -29.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_4] = plane;
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 52.0f, 2.8f, -31.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_5] = plane;
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 54.0f, 3.5f, -27.0f }, { 2.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_3_6] = plane;
 
-	WeakBlock* weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { -3.0f, 0.16f, 1.0f })) return false;
-	objectMap[WEAK_TEST] = weakBlock;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 46.0f, 0.3f, -35.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_1] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 48.0f, 0.7f, -35.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_2] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 50.0f, 1.1f, -33.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_3] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 52.0f, 1.5f, -29.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_4] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 52.0f, 1.5f, -31.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_5] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 54.0f, 1.9f, -27.0f }, { 2.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_3_6] = plane;
 
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 46.0f, 0.7f, -37.0f })) return false;
-	objectMap[FOR_STEP_3_WEAK_1] = weakBlock;
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 48.0f, 1.4f, -33.0f })) return false;
-	objectMap[FOR_STEP_3_WEAK_2] = weakBlock;
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 50.0f, 2.1f, -31.0f })) return false;
-	objectMap[FOR_STEP_3_WEAK_3] = weakBlock;
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 54.0f, 3.5f, -29.0f })) return false;
-	objectMap[FOR_STEP_3_WEAK_4] = weakBlock;
+
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 46.0f, 0.3f, -37.0f })) return false;
+		objectMap[FOR_STEP_3_WEAK_1] = weakBlock;
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 48.0f, 0.7f, -33.0f })) return false;
+		objectMap[FOR_STEP_3_WEAK_2] = weakBlock;
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 50.0f, 1.1f, -31.0f })) return false;
+		objectMap[FOR_STEP_3_WEAK_3] = weakBlock;
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 54.0f, 1.9f, -29.0f })) return false;
+		objectMap[FOR_STEP_3_WEAK_4] = weakBlock;
+
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 60.0f, 2.3f, -30.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+		objectMap[STEP_3] = plane;
+
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 69.0f, 2.3f, -28.0f })) return false;
+		objectMap[FOR_STEP_4_WEAK_1] = weakBlock;
+		weakBlock = new WeakBlock(); //fake_block
+		if (false == weakBlock->init(device, { 71.0f, 2.3f, -28.0f })) return false;
+		objectMap[FOR_STEP_4_WEAK_1] = weakBlock;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 70.0f, 2.3f, -32.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_4_1] = plane;
+		movingBlock = new MovingBlock();
+		if (false == movingBlock->init(device, { 66.0f, 2.3f, -30.0f }, { 74.0f, 3.5f, -30.0f }, 0.5f)) return false;
+		objectMap[FOR_STEP_4_MOVE_1] = movingBlock;
 
 	plane = new StaticBlock();
-	if (false == plane->init(device, { 60.0f, 3.5f, -30.0f }, { 10.0f, 0.2f, 10.0f })) return false;
-	objectMap[STEP_3] = plane;
-
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 69.0f, 3.5f, -28.0f })) return false;
-	objectMap[FOR_STEP_4_WEAK_1] = weakBlock;
-	weakBlock = new WeakBlock(); //fake_block
-	if (false == weakBlock->init(device, { 71.0f, 3.5f, -28.0f })) return false;
-	objectMap[FOR_STEP_4_WEAK_1] = weakBlock;
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 70.0f, 3.5f, -32.0f }, { 4.0f, 0.2f, 2.0f })) return false;
-	objectMap[FOR_STEP_4_1] = plane;
-	movingBlock = new MovingBlock();
-	if (false == movingBlock->init(device, { 66.0f, 3.5f, -30.0f }, { 74.0f, 3.5f, -30.0f }, 0.5f)) return false;
-	objectMap[FOR_STEP_4_MOVE_1] = movingBlock;
-
-	plane = new StaticBlock();
-	if (false == plane->init(device, { 80.0f, 3.5f, -30.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	if (false == plane->init(device, { 80.0f, 2.7f, -30.0f }, { 10.0f, 0.2f, 10.0f })) return false;
 	objectMap[STEP_4] = plane;
 
-	DoubleJump* doubleJump = new DoubleJump();
-	if (false == doubleJump->init(device, { -3.0f, 0.5f, -3.0f })) return false;
-	objectMap[DOUBLE_TEST] = doubleJump;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 85.0f, 3.0f, -24.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_5_1] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 87.0f, 3.4f, -22.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_5_2] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 89.0f, 3.8f, -20.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_5_3] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 91.0f, 4.2f, -18.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_5_4] = plane;
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 93.0f, 4.5f, -16.0f }, { 4.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_5_5] = plane;
+
+		doubleJump = new DoubleJump();
+		if (false == doubleJump->init(device, { 85.0f, 3.4f, -24.0f })) return false;
+		objectMap[FOR_STEP_5_JUMP_1] = doubleJump;
+		doubleJump = new DoubleJump();
+		if (false == doubleJump->init(device, { 91.0f, 4.9f, -16.0f })) return false;
+		objectMap[FOR_STEP_5_JUMP_2] = doubleJump;
+		doubleJump = new DoubleJump();
+		if (false == doubleJump->init(device, { 93.0f, 4.9f, -16.0f })) return false;
+		objectMap[FOR_STEP_5_JUMP_3] = doubleJump;
+		doubleJump = new DoubleJump();
+		if (false == doubleJump->init(device, { 95.0f, 4.9f, -16.0f })) return false;
+		objectMap[FOR_STEP_5_JUMP_4] = doubleJump;
+
+	plane = new StaticBlock();
+	if (false == plane->init(device, { 90.0f, 5.0f, -10.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	objectMap[STEP_5] = plane;
+
+		plane = new StaticBlock();
+		if (false == plane->init(device, { 80.0f, 5.4f, -10.0f }, { 10.0f, 0.2f, 2.0f })) return false;
+		objectMap[FOR_STEP_6] = plane;
+
+
+	plane = new StaticBlock();
+	if (false == plane->init(device, { 70.0f, 5.8f, -10.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	objectMap[STEP_6] = plane;
+
+		movingBlock = new MovingBlock();
+		if (false == movingBlock->init(device, { 65.0f, 5.8f, -10.0f }, { 65.0f, 10.0f, -10.0f }, 1.5f)) return false;
+		objectMap[FOR_STEP_7_MOVE] = movingBlock;
+
+	plane = new StaticBlock();
+	if (false == plane->init(device, { 60.0f, 10.0f, -10.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	objectMap[STEP_7] = plane;
+
+	direcionalBlock = new DirectionalBlock();
+	if (false == direcionalBlock->init(device, { 65.0f, 10.0f, -10.0f }, { 65.0f, 20.0f, -10.0f }, 2.5f)) return false;
+	objectMap[FOR_STEP_8_DIRECT] = direcionalBlock;
+
+
+	plane = new StaticBlock();
+	if (false == plane->init(device, { 50.0f, 20.0f, -10.0f }, { 10.0f, 0.2f, 10.0f })) return false;
+	objectMap[STEP_8] = plane;
+
+	
+
+
+
+
+	
 
 	if (false == initLight(device)) return false;
 
