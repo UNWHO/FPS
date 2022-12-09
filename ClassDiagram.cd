@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Graphic" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIUAAACAAgAQIAAAAAAAABACkAAEAYIEAAgABAgAAE=</HashCode>
+      <FileName>graphic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Window" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAABADgDQAAAIQAQQAEAFgAAQAAYAYAAAAgCAgAAAA=</HashCode>
+      <FileName>window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAIAAAAgAEAFAAAAKAAAEAAAAEAAA=</HashCode>
+      <FileName>camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Light">
+    <Position X="0.5" Y="1.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAACAAAAAAAAAAAAgAAAAIAAAICAAAAAAABACA=</HashCode>
+      <FileName>light.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object">
+    <Position X="8.25" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>EQIAIGggAQABBAQgABIQqBACAAQBCAQCxARCCERURAA=</HashCode>
+      <FileName>object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cuboid">
+    <Position X="12.25" Y="1.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAAAAAAAIAAAAAAAAAAAAICQAAAAAAAAAA=</HashCode>
+      <FileName>cuboid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEJAACACAgAAAIAAoAAIAAEAQAAAAAYAAAAgIAAUAAA=</HashCode>
+      <FileName>scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sphere">
+    <Position X="3.75" Y="1.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAACAAAAAAAAAAAAAAAAAAAAAICCAAAAAAAAAA=</HashCode>
+      <FileName>sphere.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="2" Y="6" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AQAAAiBAAAAAARAAAAAAAAAAAAAAAAIAQAgAAQAAgAA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerFoot">
+    <Position X="14" Y="3.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAgAAAAAAEAAIBQAAIAAAAAAA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAIAAAAAAAAAAIAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>gameManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectionalBlock">
+    <Position X="7.25" Y="3.25" Width="6.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABIAAAAAgAAAAAAAAQIAAAAAAAAAAAA=</HashCode>
+      <FileName>directionalBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovingBlock">
+    <Position X="9.5" Y="3.25" Width="7" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIBIAAEAAgAAAAAAAAQIAAAAAAAAAAAA=</HashCode>
+      <FileName>movingBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticBlock">
+    <Position X="11.75" Y="3.25" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>staticBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeakBlock">
+    <Position X="17.5" Y="4" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>weakBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DoubleJump">
+    <Position X="5" Y="3.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>doubleJump.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="KEY" Collapsed="true">
+    <Position X="18.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAABAIAAAAAAAAAABBAAAgAAAgAAAQAQAAAAAAAAA=</HashCode>
+      <FileName>window.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MOUSE" Collapsed="true">
+    <Position X="20.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>window.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ObjectIndex" Collapsed="true">
+    <Position X="22.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEKZFwACAoEAADAQAEAgAABARAuAESAAAAAAAAAgAIE=</HashCode>
+      <FileName>enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Shape" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAQBAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>object.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Malgun Gothic" Size="9" />
+</ClassDiagram>
