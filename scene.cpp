@@ -223,19 +223,19 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 		
 
 		movingBlock = new MovingBlock();
-		if (false == movingBlock->init(device, { 64.0f, 5.6f, -10.0f }, { 64.0f, 6.6f, -10.0f }, 1.2f)) return false;
+		if (false == movingBlock->init(device, { 64.0f, 5.6f, -10.0f }, { 64.0f, 6.8f, -10.0f }, 1.0f)) return false;
 		objectMap[FOR_STEP_7_MOVE_1] = movingBlock;
 		movingBlock = new MovingBlock();
-		if (false == movingBlock->init(device, { 62.0f, 7.6f, -10.0f }, { 62.0f, 6.6f, -10.0f }, 1.2f)) return false;
+		if (false == movingBlock->init(device, { 62.0f, 7.8f, -10.0f }, { 62.0f, 6.4f, -10.0f }, 1.0f)) return false;
 		objectMap[FOR_STEP_7_MOVE_2] = movingBlock;
 		movingBlock = new MovingBlock();
-		if (false == movingBlock->init(device, { 60.0f, 7.6f, -10.0f }, { 60.0f, 8.6f, -10.0f }, 1.2f)) return false;
+		if (false == movingBlock->init(device, { 60.0f, 7.4f, -10.0f }, { 60.0f, 8.8f, -10.0f }, 1.0f)) return false;
 		objectMap[FOR_STEP_7_MOVE_3] = movingBlock;
 		movingBlock = new MovingBlock();
-		if (false == movingBlock->init(device, { 58.0f, 9.6f, -10.0f }, { 58.0f, 8.6f, -10.0f }, 1.2f)) return false;
+		if (false == movingBlock->init(device, { 58.0f, 9.8f, -10.0f }, { 58.0f, 8.4f, -10.0f }, 1.0f)) return false;
 		objectMap[FOR_STEP_7_MOVE_4] = movingBlock;
 		movingBlock = new MovingBlock();
-		if (false == movingBlock->init(device, { 56.0f, 9.6f, -10.0f }, { 56.0f, 10.6f, -10.0f }, 1.2f)) return false;
+		if (false == movingBlock->init(device, { 56.0f, 9.4f, -10.0f }, { 56.0f, 10.6f, -10.0f }, 1.0f)) return false;
 		objectMap[FOR_STEP_7_MOVE_5] = movingBlock;
 		
 
