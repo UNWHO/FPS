@@ -2,16 +2,15 @@
 
 enum ObjectIndex
 {
+	GAME_MANAGER,
+
 	PLAYER,
 	PLAYER_FOOT,
-	YELLOW_BALL,
-	RED_BALL_A,
-	RED_BALL_B,
+
+	GOAL,
+	
 	PLANE,
-	WALL_LEFT,
-	WALL_RIGHT,
-	WALL_UP,
-	WALL_DOWN,
+	
 	LIGHT,
 	BLOCK,
 	// BLOCK

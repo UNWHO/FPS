@@ -9,10 +9,9 @@
 #include "weakBlock.h"
 #include "doubleJump.h"
 #include "directionalBlock.h"
+#include "goal.h"
 #include <iostream>
 
-// initialize constant variable
-const float Scene::BALL_RADIUS = 0.1f;
 
 bool Scene::initLight(IDirect3DDevice9* device)
 {
@@ -364,6 +363,10 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 	if (false == plane->init(device, { 20.0f, 8.5f, 0.0f }, { 2.0f, 1.6f, 2.0f })) return false;
 	objectMap[STEP_9_3] = plane;
 
+	Goal* goal = new Goal();
+	if (false == goal->init(device, { 20.0f, 10.0f, 0.0f })) return false;
+	objectMap[GOAL] = goal;
+
 	if (false == initLight(device)) return false;
 
 	for (auto iter = objectMap.begin(); iter != objectMap.end(); iter++) {
@@ -453,9 +456,7 @@ void Scene::render(unsigned long timeDelta)
 			(*iter)->render(device, worldMatrix);
 		}
 
-		
-		gameManager.printFPS(timeDelta);
-		gameManager.printPlayerPosition(objectMap[PLAYER]);
+		gameManager.printInfo(timeDelta);
 
 		device->EndScene();
 		device->Present(0, 0, 0, 0);

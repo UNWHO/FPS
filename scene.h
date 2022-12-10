@@ -49,11 +49,5 @@ public:
 	void render(unsigned long);
 
 	Object* findObject(ObjectIndex object) { return objectMap[object]; };
-
-
-	
-
-	// constants
-public:
-	static const float BALL_RADIUS;
+	GameManager& getGameManager() { return gameManager; };
 };

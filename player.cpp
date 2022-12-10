@@ -21,7 +21,10 @@ bool Player::init(IDirect3DDevice9* device)
 	setMesh(sphereMesh);
 
 	setPosition({ 0.0f, 1.01f, 0.0f });
+
 	setVelocity({ 0.0f, 0.0f, 0.0f });
+
+
 	groundVelocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	applyGravity();
 	return true;
@@ -44,10 +47,17 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 
 	if (window.isKeyPressed(KEY_R))
 	{
-		setPosition({ 0.0f, 1.01f, 0.0f });
-		setVelocity({ 0.0f, 0.0f, 0.0f });
+		respawn();
 		window.clearKeyStatus(KEY_R);
+		return;
 	}
+
+
+	if (getPosition().y < -30.0f)
+	{
+		respawn();
+	}
+
 
 
 	// set velocity
@@ -104,17 +114,30 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 	D3DXVec3Transform(&velocity4, &velocity3, &rotation);
 
 	velocity4.x += groundVelocity.x;
-	
 	velocity4.z += groundVelocity.z;
-	std::cout << "P: " << velocity4.y << std::endl;
-	std::cout << "G: " << groundVelocity.y << std::endl;
+
 	this->setVelocity(D3DXVECTOR3(velocity4));
 }
 
 void Player::onUpdate(unsigned long timeDelta)
 {
-	if (true == isJumping)
-		return;
+
+}
+
+void Player::respawn()
+{
+	if (previousSafeGround == NULL)
+	{
+		setPosition({ 0.0f, 1.01f, 0.0f });
+		setVelocity({ 0.0f, 0.0f, 0.0f });
+	}
+	else
+	{
+		D3DXVECTOR3 position = previousSafeGround->getPosition();
+		position.y += radius + 0.1f;
+		setPosition(position);
+		setVelocity({ 0.0f, 0.0f, 0.0f });
+	}
 }
 
 
@@ -183,10 +206,15 @@ void PlayerFoot::onCollide(Object* target)
 	D3DXVECTOR3 playerVelocity = player->getVelocity();
 	D3DXVECTOR3 targetVelocity = target->getVelocity();
 
+	if(D3DXVec3LengthSq(&targetVelocity) < 0.0001f)
+		player->previousSafeGround = target;
+
 	if (playerVelocity.y - targetVelocity.y > 0)
 		return;
 
 	isCollided = true;
-	player->isJumping = false;
+
+ 	player->isJumping = false;
 	player->groundVelocity = targetVelocity;
 }
+

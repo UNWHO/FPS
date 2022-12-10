@@ -14,6 +14,9 @@ private:
 
 	D3DXVECTOR3 groundVelocity;
 
+	Object* previousSafeGround;
+
+	void respawn();
 
 public:
 	Player() :
@@ -22,7 +25,8 @@ public:
 		rotateSpeed(0.00025f),
 		jumpSpeed(1.0f),
 		isJumping(true),
-		canDoubleJump(false)
+		canDoubleJump(false),
+		previousSafeGround(NULL)
 	{
 
 	}	
