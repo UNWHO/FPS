@@ -25,14 +25,6 @@
     <Filter Include="Application">
       <UniqueIdentifier>{7c04513c-1dca-4ef8-9fa9-94dbfde14f4d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Header Files">
-      <UniqueIdentifier>{4528a7c3-d5c5-484d-8990-1deaaa66ae61}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl</Extensions>
-    </Filter>
-    <Filter Include="Application\Source Files">
-      <UniqueIdentifier>{dbd93ea0-4100-4aa9-bd37-338f3c4938c4}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
-    </Filter>
     <Filter Include="Application\Block">
       <UniqueIdentifier>{d7f92f8f-5004-4377-81af-783faec69ca6}</UniqueIdentifier>
     </Filter>
@@ -51,13 +43,27 @@
     <Filter Include="Application\Item\Source Files">
       <UniqueIdentifier>{a530d277-e3da-4776-bd6d-292a79526921}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Application\resource">
+      <UniqueIdentifier>{10b7b73c-b8dd-4d66-b448-04515d80bbcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Core">
+      <UniqueIdentifier>{ea1751ea-762c-43ea-9572-19a0a89e3039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Core\Header Files">
+      <UniqueIdentifier>{4528a7c3-d5c5-484d-8990-1deaaa66ae61}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Application\Core\Source Files">
+      <UniqueIdentifier>{dbd93ea0-4100-4aa9-bd37-338f3c4938c4}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Application\Source Files</Filter>
+      <Filter>Application\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gameManager.cpp">
-      <Filter>Application\Source Files</Filter>
+      <Filter>Application\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphic.cpp">
       <Filter>Engine\Core\Source Files</Filter>
@@ -84,7 +90,7 @@
       <Filter>Engine\Resource\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
-      <Filter>Application\Source Files</Filter>
+      <Filter>Application\Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="movingBlock.cpp">
       <Filter>Application\Block\Source Files</Filter>
@@ -104,13 +110,16 @@
     <ClCompile Include="camera.cpp">
       <Filter>Engine\Resource\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="goal.cpp">
+      <Filter>Application\Item\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameManager.h">
-      <Filter>Application\Header Files</Filter>
+      <Filter>Application\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>Application\Header Files</Filter>
+      <Filter>Application\Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="graphic.h">
       <Filter>Engine\Core\Header Files</Filter>
@@ -157,5 +166,16 @@
     <ClInclude Include="camera.h">
       <Filter>Engine\Resource\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="file.h">
+      <Filter>Engine\Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>Application\Item\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="score.txt">
+      <Filter>Application\resource</Filter>
+    </Text>
   </ItemGroup>
 </Project>
