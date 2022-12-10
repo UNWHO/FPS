@@ -141,9 +141,9 @@ void Physics::responseCollision(Sphere* sphere, Cuboid* cuboid)
 
 		enum dir { DIR_X, DIR_Y, DIR_Z} dir;
 
-		if (0 == relativeVelocity.x) relativeVelocity.x = 0.00001f;
-		if (0 == relativeVelocity.y) relativeVelocity.y = 0.00001f;
-		if (0 == relativeVelocity.z) relativeVelocity.z = 0.00001f;
+		if (0 == relativeVelocity.x) relativeVelocity.x = 0.0000001f;
+		if (0 == relativeVelocity.y) relativeVelocity.y = 0.0000001f;
+		if (0 == relativeVelocity.z) relativeVelocity.z = 0.0000001f;
 
 		if (std::fabs(offset.x / relativeVelocity.x) <= std::fabs(offset.y / relativeVelocity.y))
 		{

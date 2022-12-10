@@ -5,7 +5,7 @@
 
 namespace Physics
 {
-	const float RESPONSE_OFFSET = 0.00005f;
+	const float RESPONSE_OFFSET = 0.00004f;
 
 	bool checkCollision(const Sphere*, const Sphere*);
 	bool checkCollision(const Sphere*, const Cuboid*);

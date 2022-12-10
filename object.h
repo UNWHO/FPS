@@ -110,7 +110,7 @@ public:
 	void rotate(const D3DXVECTOR3&);
 
 	void applyGravity() { gravity = true; };
-	void cancelGravity() { gravity = false; };
+ 	void cancelGravity() { gravity = false; };
 };
 
 
