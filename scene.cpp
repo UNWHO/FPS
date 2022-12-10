@@ -313,16 +313,16 @@ bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
 		if (false == doubleJump->init(device, { 36.0f, 5.4f, -10.0f })) return false;
 		objectMap[FOR_STEP_9_JUMP_0] = doubleJump;
 		doubleJump = new DoubleJump();
-		if (false == doubleJump->init(device, { 34.0f, 5.7f, -10.0f })) return false;
+		if (false == doubleJump->init(device, { 34.0f, 5.9f, -10.0f })) return false;
 		objectMap[FOR_STEP_9_JUMP_1] = doubleJump;
 		doubleJump = new DoubleJump();
-		if (false == doubleJump->init(device, { 31.0f, 6.2f, -9.0f })) return false;
+		if (false == doubleJump->init(device, { 31.0f, 6.4f, -9.0f })) return false;
 		objectMap[FOR_STEP_9_JUMP_2] = doubleJump;
 		doubleJump = new DoubleJump();
-		if (false == doubleJump->init(device, { 28.0f, 6.7f, -8.0f })) return false;
+		if (false == doubleJump->init(device, { 28.0f, 6.9f, -8.0f })) return false;
 		objectMap[FOR_STEP_9_JUMP_3] = doubleJump;
 		doubleJump = new DoubleJump();
-		if (false == doubleJump->init(device, { 25.0f, 7.2f, -7.0f })) return false;
+		if (false == doubleJump->init(device, { 25.0f, 7.4f, -7.0f })) return false;
 		objectMap[FOR_STEP_9_JUMP_4] = doubleJump;
 
 		
