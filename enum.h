@@ -133,11 +133,14 @@ enum ObjectIndex
 		FOR_STEP_9_JUMP_6,
 		FOR_STEP_9_JUMP_7,
 		FOR_STEP_9_JUMP_8,
-
+	
 	FOR_STEP_9_1,
 	FOR_STEP_9_2,
 	FOR_STEP_9_3,
 	FOR_STEP_9_4,
+	
+	
+
 	
 
 
