@@ -8,7 +8,7 @@ bool DoubleJump::init(IDirect3DDevice9* device, D3DXVECTOR3 position)
 	if (NULL == device)
 		return false;
 
-	radius = 0.1f;
+	radius = 0.2f;
 	setShape(SPHERE);
 	setMaterial(Graphic::MAGENTA, 5.0f);
 

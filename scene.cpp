@@ -433,12 +433,14 @@ void Scene::render(unsigned long timeDelta)
 			{
 				if ((*iterA)->collideWith(*iterB))
 				{
+					if (!((*iterA)->isDetectOnly()) && !((*iterB)->isDetectOnly()))
+					{
+						(*iterA)->response(*iterB);
+					}
+
+
 					(*iterA)->onCollide(*iterB);
 					(*iterB)->onCollide(*iterA);
-
-					if ((*iterA)->isDetectOnly() || (*iterB)->isDetectOnly()) continue;
-
-					(*iterA)->response(*iterB);
 				}
 			}
 		}	

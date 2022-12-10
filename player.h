@@ -12,7 +12,7 @@ private:
 	const float rotateSpeed;
 	const float jumpSpeed;
 
-
+	D3DXVECTOR3 groundVelocity;
 
 
 public:

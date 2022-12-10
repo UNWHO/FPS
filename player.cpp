@@ -4,6 +4,8 @@
 #include "enum.h"
 #include "graphic.h"
 
+#include <iostream>
+
 bool Player::init(IDirect3DDevice9* device)
 {
 	if (NULL == device)
@@ -20,6 +22,7 @@ bool Player::init(IDirect3DDevice9* device)
 
 	setPosition({ 0.0f, 1.01f, 0.0f });
 	setVelocity({ 0.0f, 0.0f, 0.0f });
+	groundVelocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	applyGravity();
 	return true;
 }
@@ -73,12 +76,24 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 	}
 	else
 	{
+		velocity3.y = groundVelocity.y;
 		if (jump)
 		{
 			isJumping = true;
 			velocity3.y += jumpSpeed;
 		}
 	}
+
+	if (window.isKeyPressed(RETURN))
+	{
+		cancelGravity();
+		window.clearKeyStatus(RETURN);
+	}
+		
+	if (window.isKeyPressed(KEY_C))
+		applyGravity();
+
+	//if (velocity3.y > jumpSpeed) velocity3.y = jumpSpeed;
 
 	window.clearKeyStatus(SPACE);
 
@@ -88,6 +103,11 @@ void Player::onBeforeUpdate(unsigned long deltaTime)
 
 	D3DXVec3Transform(&velocity4, &velocity3, &rotation);
 
+	velocity4.x += groundVelocity.x;
+	
+	velocity4.z += groundVelocity.z;
+	std::cout << "P: " << velocity4.y << std::endl;
+	std::cout << "G: " << groundVelocity.y << std::endl;
 	this->setVelocity(D3DXVECTOR3(velocity4));
 }
 
@@ -95,10 +115,6 @@ void Player::onUpdate(unsigned long timeDelta)
 {
 	if (true == isJumping)
 		return;
-
-	D3DXVECTOR3 velocity = getVelocity();
-	velocity.y = 0.0f;
-	setVelocity(velocity);
 }
 
 
@@ -109,9 +125,9 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 
 	setMaterial(Graphic::CYAN, 5.0f);
 
-	size.x = 0.2f;
-	size.y = 0.001f;
-	size.z = 0.2f;
+	size.x = 0.19f;
+	size.y = 0.01f;
+	size.z = 0.19f;
 
 	setDetectOnly();
 	setShape(CUBOID);
@@ -129,6 +145,7 @@ bool PlayerFoot::init(IDirect3DDevice9* device, Player* player)
 	this->setPosition(position);
 	this->setVelocity({ 0.0f, 0.0f, 0.0f });
 	this->setStatic();
+	this->setInvisible();
 
 	return true;
 }
@@ -163,11 +180,13 @@ void PlayerFoot::onCollide(Object* target)
 	if (target->getShape() == SPHERE)
 		return;
 
-	float relativeVelocity = player->getVelocity().y - target->getVelocity().y;
+	D3DXVECTOR3 playerVelocity = player->getVelocity();
+	D3DXVECTOR3 targetVelocity = target->getVelocity();
 
-	if (relativeVelocity > 0)
+	if (playerVelocity.y - targetVelocity.y > 0)
 		return;
 
 	isCollided = true;
 	player->isJumping = false;
+	player->groundVelocity = targetVelocity;
 }
