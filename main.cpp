@@ -25,9 +25,10 @@ int WINAPI WinMain(HINSTANCE hinstance,
 
 	IDirect3DDevice9* device = graphic.getDevice();
 	ID3DXFont* font = graphic.getFont();
+	ID3DXFont* fontSmall = graphic.getFontSmall();
 
 	Scene& scene = Scene::getInstance();
-	if (!scene.init(device, font))
+	if (!scene.init(device, font, fontSmall))
 	{
 		::MessageBox(0, "Setup() - FAILED", 0, 0);
 		return 0;

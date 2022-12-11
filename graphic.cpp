@@ -121,6 +121,21 @@ bool Graphic::init(
 
 	D3DXCreateFontIndirect(device, &lf2, &font);
 
+
+	ZeroMemory(&lf2, sizeof(D3DXFONT_DESCA));
+	lf2.Height = 40;
+	lf2.Width = 15;
+	lf2.Weight = 60;
+	lf2.MipLevels = 0;
+	lf2.Italic = false;
+	lf2.CharSet = 0;
+	lf2.OutputPrecision = 0;
+	lf2.Quality = 0;
+	lf2.PitchAndFamily = 0;
+	std::strcpy(lf2.FaceName, "Arial"); // font style
+
+	D3DXCreateFontIndirect(device, &lf2, &fontSmall);
+
 	return true;
 }
 
@@ -128,4 +143,5 @@ void Graphic::destory()
 {
 	device->Release();
 	font->Release();
+	fontSmall->Release();
 }

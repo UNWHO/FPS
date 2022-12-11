@@ -11,9 +11,10 @@
 #include "player.h"
 #include "file.h"
 
-void GameManager::init(ID3DXFont* font)
+void GameManager::init(ID3DXFont* font, ID3DXFont* fontSmall)
 {
 	 this->font = font;
+	 this->fontSmall = fontSmall;
 
 	 std::vector<std::string> savedScores = File::read("score.txt");
 	 if (savedScores.size() != 10)
@@ -123,7 +124,7 @@ void GameManager::printScoreBoard()
 
 		str += '\n';
 	}
-	font->DrawText(0, str.c_str(), -1, &position, DT_VCENTER | DT_CENTER, Graphic::BLACK);
+	fontSmall->DrawText(0, str.c_str(), -1, &position, DT_VCENTER | DT_CENTER, Graphic::BLACK);
 
 	str = "My Score : " + formatScore(myScore);
 

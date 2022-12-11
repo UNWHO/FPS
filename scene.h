@@ -20,6 +20,7 @@ private:
 
 	IDirect3DDevice9* device;
 	ID3DXFont* font;
+	ID3DXFont* fontSmall;
 
 	GameManager gameManager;
 	Camera camera;
@@ -42,7 +43,7 @@ public:
 		return scene;
 	}
 	 
-	bool init(IDirect3DDevice9*, ID3DXFont*);
+	bool init(IDirect3DDevice9*, ID3DXFont*, ID3DXFont*);
 	void destory();
 	
 	void update();

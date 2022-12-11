@@ -6,6 +6,7 @@ class Graphic
 private:
 	IDirect3DDevice9* device;
 	ID3DXFont* font;
+	ID3DXFont* fontSmall;
 
 	Graphic() :
 		device(NULL),
@@ -27,6 +28,7 @@ public:
 
 	IDirect3DDevice9* getDevice() const { return device; };
 	ID3DXFont* getFont() const { return font; };
+	ID3DXFont* getFontSmall() const { return fontSmall; };
 
 
 public:

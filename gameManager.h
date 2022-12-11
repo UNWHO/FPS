@@ -9,6 +9,7 @@ class GameManager
 {
 private:
 	ID3DXFont* font;
+	ID3DXFont* fontSmall;
 	unsigned long long score[10];
 
 	bool isGameOver;
@@ -38,7 +39,7 @@ public:
 		storeScore();
 	}
 
-	void init(ID3DXFont*);
+	void init(ID3DXFont*, ID3DXFont*);
 
 	void gameOver();
 	void printInfo(unsigned long);

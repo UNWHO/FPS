@@ -41,12 +41,13 @@ bool Scene::initLight(IDirect3DDevice9* device)
 	return true;
 }
 
-bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font)
+bool Scene::init(IDirect3DDevice9* device, ID3DXFont* font, ID3DXFont* fontSmall)
 {
 	this->device = device;
 	this->font = font;
+	this->fontSmall = fontSmall;
 
-	gameManager.init(font);
+	gameManager.init(font, fontSmall);
 
 	
 	Player* player = new Player();
