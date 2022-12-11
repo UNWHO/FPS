@@ -123,8 +123,8 @@ bool Graphic::init(
 
 
 	ZeroMemory(&lf2, sizeof(D3DXFONT_DESCA));
-	lf2.Height = 40;
-	lf2.Width = 15;
+	lf2.Height = 51;
+	lf2.Width = 21;
 	lf2.Weight = 60;
 	lf2.MipLevels = 0;
 	lf2.Italic = false;

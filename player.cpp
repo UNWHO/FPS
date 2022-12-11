@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "enum.h"
 #include "graphic.h"
+#include "staticBlock.h"
 
 #include <iostream>
 
@@ -206,9 +207,6 @@ void PlayerFoot::onCollide(Object* target)
 	D3DXVECTOR3 playerVelocity = player->getVelocity();
 	D3DXVECTOR3 targetVelocity = target->getVelocity();
 
-	if(D3DXVec3LengthSq(&targetVelocity) < 0.0001f)
-		player->previousSafeGround = target;
-
 	if (playerVelocity.y - targetVelocity.y > 0)
 		return;
 
@@ -216,5 +214,11 @@ void PlayerFoot::onCollide(Object* target)
 
  	player->isJumping = false;
 	player->groundVelocity = targetVelocity;
+
+	StaticBlock* block = dynamic_cast<StaticBlock*>(target);
+	if (block == NULL)
+		return;
+
+	player->previousSafeGround = target;
 }
 
